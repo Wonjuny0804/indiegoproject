@@ -1,25 +1,25 @@
-    header {
-    .login-btn {
-      @include button;
-      position: absolute;
-      background: none;
-      top: 25px;
-      right: 25px;
-      color: $font-color;
-      font-size: $medium-font;
-    }
+header {
+  .login-btn {
+    @include button;
+    position: absolute;
+    background: none;
+    top: 25px;
+    right: 25px;
+    color: $font-color;
+    font-size: $medium-font;
   }
- 
-  .landing {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    img {
-      width: 300px;
-      height: 300px;
-    }
+}
+
+.landing {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    width: 300px;
+    height: 300px;
   }
+}
 
 .main {
   background: $secondary-color;
@@ -30,7 +30,6 @@
     display: none;
   }
   .menu {
-    background: skyblue;
     .is-active {
       display: block;
     }
@@ -41,6 +40,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin-bottom: 30px;
   & button {
     font-size: 60px;
     border: none;
@@ -51,12 +51,40 @@
 }
 
 .bookstore-info {
-  background: lightgreen;
+  background: $base-color;
   display: none;
+  position: relative;
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 25%;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-bottom-color: $base-color;
+    border-top: 0;
+    margin-left: -20px;
+    margin-top: -20px;
+  }
 }
 .theatre-info {
-  background: crimson;
+  background: $base-color;
   display: none;
+  position: relative;
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 24%;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-bottom-color: $base-color;
+    border-top: 0;
+    margin-left: -20px;
+    margin-top: -20px;
+  }
 }
 .carousel {
   position: relative;
