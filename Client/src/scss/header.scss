@@ -1,0 +1,10 @@
+.header {
+  background-color: yellow;
+  padding: 0px;
+  display: flex;
+  justify-content: flex-end;
+  .login-btn {
+    justify-content: center;
+    align-content: center;
+  }
+}

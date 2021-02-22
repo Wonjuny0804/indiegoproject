@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Indiego</title>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400" rel="stylesheet">
   </head>
   <body>
     <header class="header">
@@ -14,10 +15,9 @@
         <span class="login-btn-txt">LOGIN</span>
       </button>
     </header>
-    <main class="main"> 
-      <div class="landing">
-        
-      </div>
+
+    <main class="main">
+      <div class="landing"></div>
       <section class="login">
         <svg class="main-logo"></svg>
         <h1 class="login-heading">
@@ -64,7 +64,7 @@
           </button>
           <button class="theatre-info-btn"><i class="fas fa-video"></i></button>
         </div>
-        <div class="bookstore-info">
+        <div class="bookstore-info is-active">
           <div class="city-selection">
             <label for="cities">도시:</label>
             <select name="cities" id="cities">
@@ -74,9 +74,15 @@
               <option value="gangbook">강북구</option>
             </select>
           </div>
-          <div class="bookstore-carousel">
+          <div class="bookstore-carousel carousel">
             <!-- If you want, you can 동적 생성 stuffs below -->
-            <div class="bookstore-carousel-slides">
+            <div class="bookstore-carousel-slides carousel-slides">
+              <!-- <img src="./assets/movie-4.jpg" alt="movie4" />
+              <img src="./assets/movie-1.jpg" alt="movie1" />
+              <img src="./assets/movie-2.jpg" alt="movie2" />
+              <img src="./assets/movie-3.jpg" alt="movie3" />
+              <img src="./assets/movie-4.jpg" alt="movie4" />
+              <img src="./assets/movie-1.jpg" alt="movie1" /> -->
             </div>
             <button class="carousel-control prev">&laquo;</button>
             <button class="carousel-control next">&raquo;</button>
@@ -95,15 +101,15 @@
               <option value="gangbook">강북구</option>
             </select>
           </div>
-          <div class="theatre-carousel">
+          <div class="theatre-carousel carousel">
             <!-- If you want, you can 동적 생성 stuffs below -->
-            <div class="theatre-carousel-slides">
+            <div class="theatre-carousel-slides carousel-slides">
+              <!-- <img src="assets" />
               <img src="assets" />
               <img src="assets" />
               <img src="assets" />
               <img src="assets" />
-              <img src="assets" />
-              <img src="assets" />
+              <img src="assets" /> -->
             </div>
             <button class="carousel-control prev">&laquo;</button>
             <button class="carousel-control next">&raquo;</button>
@@ -115,16 +121,14 @@
       </section>
     </main>
     <footer class="footer">
-      <h1 class="footer-heading">ABOUT INDIE•GO</h1>
-      <ul class="member-intro">
-        <li>기획</li>
-        <li>장원준</li>
-        <li>디자인</li>
-        <li>서민기</li>
-        <li>구조</li>
-        <li>신봉철</li>
-      </ul>
+      <div class="footer-content">
+        <h1 class="footer-heading">ABOUT <em>INDIE•GO</em></h1>
+        <ul class="member-intro">
+          <li><a href="https://github.com/Wonjuny0804">장원준</a></li>
+          <li><a href="https://github.com/minki607">서민기</a></li>
+          <li><a href="https://github.com/bcround">신봉철</a></li>
+        </ul>
+      </div>
     </footer>
   </body>
 </html>
->>>>>>> b35e67f6954dd756aafeb93f64824de3a2f0ee87
