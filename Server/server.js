@@ -31,6 +31,32 @@ let bookstores = [
     instagram: 'https://www.instagram.com/storagebookandfilm/?hl=ko',
     img:
       'https://shop-phinf.pstatic.net/20180612_163/jumpgyu1_15287856963669OyzD_JPEG/dce1b98c-976b-4844-a8b4-d3d224cd3164.jpg'
+  },
+
+  {
+    id: 2,
+    name: '기모링 서점',
+    address: '서울 서대문구 연희로8길 18',
+    tel: '070-7780-0962',
+    openhour: '13:00~19:00',
+    introduction: `라이카시네마는 연희동에 불시착한 복합문화공간 '스페이스독'에  안착해있습니다. 스페이스독은 지하1층 라이카시네마, 1~2층 카페스페이스독, 3~4층 스페이스독 스튜디오로 구성됩니다. 
+    각 공간 간의 유기적인 연결을 통해 창작이 흐르는 복합문화공간 모델을 제시하고자 합니다. 
+    라이카시네마는 스페이스독 내 공간들, 콘텐츠들과 결합해 극장에서 보다 확장된 체험을 제공합니다.`,
+    website: 'http://laikacinema.com/',
+    instagram: 'https://www.instagram.com/laikacinema/',
+    img: 'https://cdn.imweb.me/thumbnail/20201214/00faa1897f1c8.jpg'
+  },
+
+  {
+    id: 3,
+    name: '샵 메이커즈',
+    address: '부산 금정구 부산대학로64번길 120',
+    tel: '051-512-9906  ',
+    openhour: '화~일 12:00~19:00',
+    introduction: `꾸준히 성장하는 부산 1호 독립출판서점`,
+    website: 'https://m.blog.naver.com/goforit_k/221701575122',
+    instagram: 'https://www.instagram.com/shop_makers/',
+    img: 'https://post-phinf.pstatic.net/MjAxNzAxMjFfMTE0/MDAxNDg0OTc0ODY5MTM4.a29kUkuyqpnkHM-yw4h5LWR1xKxIJpUB3OqVg130xJMg.tyPFmd3UZDuEVcOWHRcOQZQcYtEE8HuLxUClLkJdcs4g.JPEG/%EB%B6%80%EC%82%B0_%EC%83%B5%EB%A9%94%EC%9D%B4%EC%BB%A4%EC%A6%88%EC%99%B8%EA%B4%802.jpg?type=w1200'
   }
 ];
 
