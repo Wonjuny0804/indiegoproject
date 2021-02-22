@@ -23,12 +23,6 @@ header {
 
 .main {
   background: $secondary-color;
-  .login {
-    display: none;
-  }
-  .registration {
-    display: none;
-  }
   .menu {
     .is-active {
       display: block;
