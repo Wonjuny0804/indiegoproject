@@ -25,8 +25,43 @@
   background: lightgreen;
   display: none;
 }
-
 .theatre-info {
   background: crimson;
   display: none;
+}
+.carousel {
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+  width: 341px;
+  .carousel-slides {
+    --currentSlide: 0;
+    --duration: 0;
+    display: flex;
+    transition: transform calc(var(--duration) * 1ms) ease-out;
+    transform: translate3D(calc(var(--currentSlide) * -100%), 0, 0);
+  }
+  .carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2em;
+    color: #fff;
+    background-color: transparent;
+    border-color: transparent;
+    cursor: pointer;
+    z-index: 99;
+    &.prev {
+      left: 0;
+    }
+    &.next {
+      right: 0;
+    }
+  }
+}
+.city-selection {
+  width: 120px;
+  margin: 0 auto;
+  padding: 10px;
+  font-size: 1.6rem;
 }
