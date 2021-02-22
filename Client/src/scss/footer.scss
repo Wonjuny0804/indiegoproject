@@ -1,0 +1,36 @@
+.footer {
+  @include flexCenter;
+  padding: 30px;
+  background-color: $base-color;
+  color: $dark-base-color;
+  .footer-content {
+    text-align: center;
+    font-size: $large-font;
+    .footer-heading {
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    em {
+      display: block;
+    }
+    .member-intro {
+      font-size: $medium-font;
+      display: flex;
+      li {
+        padding: 10px;
+      }
+    }
+  }
+}
+
+
+@include mobile {
+  .footer {
+    .footer-content {
+      .member-intro {
+        display: block;
+      }
+    }
+    
+  }
+}
