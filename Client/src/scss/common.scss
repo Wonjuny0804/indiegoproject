@@ -1,7 +1,13 @@
+
+
 html {
-  font-size: 10px;
+  font-size: 10px;  
   font-family: 'Roboto';
   font-weight: 200;
+}
+
+body{ 
+  font-family: 'Nanum Gothic', sans-serif;
 }
 
 @mixin button {
@@ -13,3 +19,32 @@ html {
 	text-decoration: none;
 }
 
+a {
+  color: $font-color;
+  text-decoration: none;
+}
+
+@mixin flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// breakpoint
+@mixin mobile {
+  @media (min-width: $breakpoint-mobile) and (max-width: $breakpoint-tablet - 1px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$breakpoint-tablet}) and (max-width: $breakpoint-desktop - 1px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $breakpoint-desktop - 1px) {
+    @content;
+  }
+}
