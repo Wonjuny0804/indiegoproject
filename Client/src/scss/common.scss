@@ -1,14 +1,15 @@
 html {
   font-size: 10px;
-}
-
-body {
   font-family: 'Roboto';
   font-weight: 200;
 }
 
-button {
+@mixin button {
   border: none;
-  cursor: pointer;
-  outline: none;
+	padding: .5em 2em .55em;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
 }
+

@@ -1,5 +1,21 @@
+    header {
+    .login-btn {
+      @include button;
+      position: absolute;
+      background: none;
+      top: 25px;
+      right: 25px;
+      color: $font-color;
+      font-size: $medium-font;
+    }
+  }
+ 
+  .landing {
+    height: 100vh;
+  }
+
 .main {
-  background: tomato;
+  background: $secondary-color;
   .menu {
     background: skyblue;
     .is-active {
