@@ -28,17 +28,27 @@ module.exports = {
         test: /\.(png|jpe?g|gif)$/i,
         loader: 'file-loader',
         options: {
-          name: 'img/[name].[ext]'
+          name: 'img/[name].[ext]',
+          outputPath: 'assets/'
+          // publicPath: 'assets/'
         }
       },
+      // {
+      //   test: /\.(png|jpg|gif|svg)$/i,
+      //   use: [
+      //     {
+      //       loader: 'url-loader',
+      //       options: {
+      //         limit: 8192
+      //       }
+      //     }
+      //   ]
+      // },
       {
-        test: /\.(png|jpg|gif)$/i,
+        test: /\.svg$/i,
         use: [
           {
-            loader: 'url-loader',
-            options: {
-              limit: 8192
-            }
+            loader: 'url-loader'
           }
         ]
       }
