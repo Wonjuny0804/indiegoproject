@@ -1,0 +1,32 @@
+.main {
+  background: tomato;
+  .menu {
+    background: skyblue;
+    .is-active {
+      display: block;
+    }
+  }
+}
+
+.menu-btns {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  & button {
+    font-size: 60px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+  }
+}
+
+.bookstore-info {
+  background: lightgreen;
+  display: none;
+}
+
+.theatre-info {
+  background: crimson;
+  display: none;
+}
