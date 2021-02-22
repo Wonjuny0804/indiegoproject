@@ -5,8 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Indiego</title>
-    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400" rel="stylesheet">
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    <script defer type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5426928d13ea100f98a200fb3d082e1e&libraries=services,clusterer&autoload=false"></script>
   </head>
   <body>
     <header class="header">
@@ -87,6 +88,11 @@
             <button class="carousel-control prev">&laquo;</button>
             <button class="carousel-control next">&raquo;</button>
           </div>
+          <div class="closest-store">
+            <button class="find-closest-btn">가까운 지점 찾기</button>
+            <ol class="closest-store-list"></ol>
+          </div>
+          
           <div class="bookstore-map">
             <!-- Here's where 민기's magic happens -->
           </div>
