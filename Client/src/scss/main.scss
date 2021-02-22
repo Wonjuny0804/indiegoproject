@@ -23,6 +23,12 @@
 
 .main {
   background: $secondary-color;
+  .login {
+    display: none;
+  }
+  .registration {
+    display: none;
+  }
   .menu {
     background: skyblue;
     .is-active {
