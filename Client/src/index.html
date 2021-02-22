@@ -1,12 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Indiego</title>
-</head>
-<body>
-  <h1>Indiego</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Indiego</title>
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <button class="login-btn">
+        <i class="fas fa-unlock-alt"></i>
+        <span class="login-btn-txt">LOG</span>
+      </button>
+    </header>
+    <main class="main">
+      <svg class="main-logo"></svg>
+      <section class="login">
+        <svg class="main-logo"></svg>
+        <h1 class="login-heading">
+          <i class="fas fa-unlock-alt"></i>
+          <span class="login-txt">LOG-IN</span>
+        </h1>
+        <label for="loginId">
+          <i class="fas fa-user"></i>
+          <span class="login-id-txt">ID</span>
+        </label>
+        <input type="email" id="loginId" class="login-id" />
+        <label for="loginPw">
+          <i class="fas fa-key"></i>
+          <span class="login-pw-txt">PW</span>
+        </label>
+        <input type="password" id="loginPw" class="login-pw" />
+        <button class="register-btn">JOIN US</button>
+      </section>
+      <section class="registration">
+        <h1 class="registration-heading">
+          <i class="fas fa-user-plus"></i>
+          <span class="registration-txt">MEMBER REGISTRATION</span>
+        </h1>
+        <form class="registration-form">
+          <label for="regiEmail">이메일</label>
+          <input type="email" id="regiEmail" class="registration-email" />
+          <label for="regiName">이름</label>
+          <input type="text" id="regiName" class="registration-name" />
+          <label for="regiPw">비밀번호</label>
+          <input type="password" id="regiPw" class="registration-pw" />
+          <label for="regiPwConfirm">비밀번호 확인</label>
+          <input
+            type="password"
+            id="regiPwConfirm"
+            class="registration-pw-confirm"
+          />
+          <button class="register-confirm-btn">확인</button>
+        </form>
+      </section>
+      <section class="menu">
+        <div class="menu-btns">
+          <button class="bookstore-info-btn"></button>
+          <button class="theatre-info-btn"></button>
+        </div>
+        <div class="bookstore-info">
+          <div class="city-selection">
+            <label for="cities">도시:</label>
+            <select name="cities" id="cities">
+              <!-- If you want, you can 동적 생성 stuffs below -->
+              <option value="seoul">서울시 전체</option>
+              <option value="gangnam">강남구</option>
+              <option value="gangbook">강북구</option>
+            </select>
+          </div>
+          <div class="bookstore-carousel">
+            <!-- If you want, you can 동적 생성 stuffs below -->
+            <div class="bookstore-carousel-slides">
+              <img src="assets" />
+              <img src="assets" />
+              <img src="assets" />
+              <img src="assets" />
+              <img src="assets" />
+              <img src="assets" />
+            </div>
+            <button class="carousel-control prev">&laquo;</button>
+            <button class="carousel-control next">&raquo;</button>
+          </div>
+          <div class="bookstore-map">
+            <!-- Here's where 민기's magic happens -->
+          </div>
+        </div>
+        <div class="theatre-info">
+          <div class="city-selection">
+            <label for="cities">도시:</label>
+            <select name="cities" id="cities">
+              <!-- If you want, you can 동적 생성 stuffs below -->
+              <option value="seoul">서울시 전체</option>
+              <option value="gangnam">강남구</option>
+              <option value="gangbook">강북구</option>
+            </select>
+          </div>
+          <div class="theatre-carousel">
+            <!-- If you want, you can 동적 생성 stuffs below -->
+            <div class="theatre-carousel-slides">
+              <img src="assets" />
+              <img src="assets" />
+              <img src="assets" />
+              <img src="assets" />
+              <img src="assets" />
+              <img src="assets" />
+            </div>
+            <button class="carousel-control prev">&laquo;</button>
+            <button class="carousel-control next">&raquo;</button>
+          </div>
+          <div class="theatre-map">
+            <!-- Here's where 민기's magic happens -->
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <h1 class="footer-heading">ABOUT INDIE•GO</h1>
+      <ul class="member-intro">
+        <li>기획</li>
+        <li>장원준</li>
+        <li>디자인</li>
+        <li>서민기</li>
+        <li>구조</li>
+        <li>신봉철</li>
+      </ul>
+    </footer>
+  </body>
 </html>
