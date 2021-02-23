@@ -1,3 +1,6 @@
+import firebase from 'firebase/app'
+import 'firebase/firestore';
+
 const firebaseConfig = {
   apiKey: "AIzaSyDRj2S9njyGMVrQk2AO703DLtfwaB0SGHM",
   authDomain: "indiegoproject-70a10.firebaseapp.com",
@@ -9,4 +12,6 @@ const firebaseConfig = {
   measurementId: "G-15P9PGS5L3"
 }
 
-export default firebaseConfig
+firebase.initializeApp(firebaseConfig);
+
+export const firestore = firebase.firestore();
