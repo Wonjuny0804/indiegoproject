@@ -11,7 +11,7 @@
   </head>
   <body>
     <header class="header">
-      <button class="login-btn">
+      <button class="login-btn" type="button">
         <i class="fas fa-unlock-alt"></i>
         <span class="login-btn-txt">LOGIN</span>
       </button>
@@ -20,22 +20,22 @@
     <main class="main">
       <div class="landing"></div>
       <section class="login">
-        <svg class="main-logo"></svg>
-        <h1 class="login-heading">
-          <i class="fas fa-unlock-alt"></i>
-          <span class="login-txt">LOG-IN</span>
-        </h1>
-        <label for="loginId">
-          <i class="fas fa-user"></i>
-          <span class="login-id-txt">ID</span>
-        </label>
-        <input type="email" id="loginId" class="login-id" />
-        <label for="loginPw">
-          <i class="fas fa-key"></i>
-          <span class="login-pw-txt">PW</span>
-        </label>
-        <input type="password" id="loginPw" class="login-pw" />
-        <button class="register-btn">JOIN US</button>
+        <div class="login-popup-bg">
+          <section class="login-popup-container">
+            <img src="" alt="" class="login-logo">
+            <img src="" alt="" class="login-image">
+            <div class="login-form-container">
+              <form>
+                <label for="loginEmail">Email</label>
+                <input type="email" id="loginEmail" required>
+                <label for="loginPwd"></label>
+                <input type="password" id="loginPwd" required>
+                <button class="sign-in">sign in</button>
+                <button class="sign-up">sign up</button>
+              </form>
+            </div>
+          </section>
+        </div>
       </section>
       <section class="registration">
         <h1 class="registration-heading">
@@ -68,32 +68,11 @@
         <div class="bookstore-info is-active">
           <div class="city-selection">
             <ul class="cities">
-              <li>서울</li>
-              <li>경기</li>
-              <li>강원</li>
-              <li>경상</li>
-              <li>충청</li>
-              <li>전라</li>
-              <li>인천</li>
-              <li>부산</li>
             </ul>
-            <!-- <label for="cities">도시:</label> -->
-            <!-- <select name="cities" id="cities"> -->
-            <!-- If you want, you can 동적 생성 stuffs below -->
-            <!-- <option value="seoul">서울시 전체</option>
-              <option value="gangnam">강남구</option>
-              <option value="gangbook">강북구</option>
-            </select> -->
           </div>
           <div class="bookstore-carousel carousel">
             <!-- If you want, you can 동적 생성 stuffs below -->
             <div class="bookstore-carousel-slides carousel-slides">
-              <!-- <img src="./assets/movie-4.jpg" alt="movie4" />
-              <img src="./assets/movie-1.jpg" alt="movie1" />
-              <img src="./assets/movie-2.jpg" alt="movie2" />
-              <img src="./assets/movie-3.jpg" alt="movie3" />
-              <img src="./assets/movie-4.jpg" alt="movie4" />
-              <img src="./assets/movie-1.jpg" alt="movie1" /> -->
             </div>
             <button class="carousel-control prev">&laquo;</button>
             <button class="carousel-control next">&raquo;</button>
@@ -102,30 +81,19 @@
             <button class="find-closest-btn">가까운 지점 찾기</button>
             <ol class="closest-store-list"></ol>
           </div>
-          
+        
           <div class="bookstore-map">
             <!-- Here's where 민기's magic happens -->
           </div>
         </div>
         <div class="theatre-info">
           <div class="city-selection">
-            <label for="cities">도시:</label>
-            <select name="cities" id="cities">
-              <!-- If you want, you can 동적 생성 stuffs below -->
-              <option value="seoul">서울시 전체</option>
-              <option value="gangnam">강남구</option>
-              <option value="gangbook">강북구</option>
-            </select>
+            <ul class="cities">
+            </ul>
           </div>
           <div class="theatre-carousel carousel">
             <!-- If you want, you can 동적 생성 stuffs below -->
             <div class="theatre-carousel-slides carousel-slides">
-              <!-- <img src="assets" />
-              <img src="assets" />
-              <img src="assets" />
-              <img src="assets" />
-              <img src="assets" />
-              <img src="assets" /> -->
             </div>
             <button class="carousel-control prev">&laquo;</button>
             <button class="carousel-control next">&raquo;</button>
