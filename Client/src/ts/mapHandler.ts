@@ -22,6 +22,8 @@ interface Branch {
 }
 
 let stores: Array<Branch> = [];
+let theatres: Array<Branch> = [];
+let currentSlide = 0;
 
 const $bookStoreMap = document.querySelector('.bookstore-map') as HTMLElement;
 const $theatreMap = document.querySelector('.theatre-map') as HTMLElement;
@@ -87,7 +89,7 @@ const renderNearByStore = (nearByStore: Array<Branch>, map: any) => {
   const sortedByDistance = nearByStore
     .sort((store1: any, store2: any) => store1.distance - store2.distance)
     .slice(0, 5);
-  
+  $nearByStore.innerHTML = '';
   sortedByDistance.forEach(({ id, name, distance, lat, lng }: Branch) => {
     $nearByStore.innerHTML += `<li class="store-list"><button class="locate-store-btn" id="${id}">${name}</button>
     - 약 ${Math.ceil(distance) / 1000}km
@@ -261,48 +263,90 @@ const plotMap = async (mode: string, map: any) => {
   }
 };
 
-// const createListNav = () => {
-//   const $storeByRegionTab = document.querySelector(
-//     '.store-by-region-tabs'
-//   ) as HTMLElement;
-//   const storeByRegion = stores
-//     .map((store: Branch, i: number) => {
-//       return store.region;
-//     })
-//     .filter(
-//       (location: any, index: number, locArray: any) =>
-//         locArray.indexOf(location) === index
-//     );
+const createListNav = (mode: string) => {
+  const $storeByRegionTab = (mode ==='bookstores' 
+  ?  document.querySelector('.bookstore-info .cities') as HTMLElement 
+  : document.querySelector('.theatre-info .cities') as HTMLElement) 
+  
+  console.log($storeByRegionTab);
 
-//   $storeByRegionTab.innerHTML = storeByRegion
-//     .map(
-//       ($menu: any) =>
-//         `<li class="menu-tab"><button class='display-menu-btn'>${$menu}</button></li>`
-//     )
-//     .join('');
-// };
+  const storeByRegion = stores
+    .map((store: Branch, i: number) => {
+      return store.region;
+    })
+    .filter(
+      (location: any, index: number, locArray: any) =>
+        locArray.indexOf(location) === index
+    );
 
-// const displayListNav = () => {
-//   const $storeByRegionTab = document.querySelector(
-//     '.store-by-region-tabs'
-//   ) as HTMLElement;
-//   const $storeCarousel = document.querySelector(
-//     '.store-carousel'
-//   ) as HTMLElement;
+  $storeByRegionTab.innerHTML = storeByRegion
+    .map(
+      ($menu: any) =>
+        `<li class="display-list-btn">${$menu}</li>`
+    )
+    .join('');
+};
 
-//   $storeByRegionTab.addEventListener('click', (e: MouseEvent) => {
-//     const target = e.target as HTMLElement;
-//     if (!target.classList.contains('display-menu-btn')) return;
-//     const matchingStore = stores.filter(
-//       (store: Branch) => store.region === target.textContent
-//     );
-//     $storeCarousel.innerHTML = matchingStore
-//       .map((store: Branch) => {
-//         return `<img src="${store.img}" alt="${store.name}">`;
-//       })
-//       .join('');
-//   });
-// };
+const displayListCarousel = (mode: string, map: any) => {
+
+  const $carouselContainer = (mode === 'bookstores'
+  ? document.querySelector('.bookstore-carousel') as HTMLElement
+  : document.querySelector('.theatre-carousel') as HTMLElement);
+  
+  const $storeByRegionTab = (mode === 'bookstores' 
+  ? document.querySelector('.bookstore-info .cities') as HTMLElement
+  : document.querySelector('.theatre-info .cities') as HTMLElement);
+
+  const $storeCarousel = (mode === 'bookstores'  
+  ? document.querySelector('.bookstore-info .bookstore-carousel-slides') as HTMLElement
+  : document.querySelector('.theatre-info .theatre-carousel-slides') as HTMLElement);
+
+
+  $storeByRegionTab.addEventListener('click', (e: MouseEvent) => {
+    currentSlide = 0;
+    const target = e.target as HTMLElement;
+
+    if (!target.classList.contains('display-list-btn')) return;
+    const matchingStore = stores.filter(
+      (store: Branch) => store.region === target.textContent
+    );
+
+    $storeCarousel.innerHTML = matchingStore
+      .map((store: Branch) => {
+        return `<img id=${store.id} src="${store.img}" alt="${store.name}">`;
+      })
+      .join('');
+
+      $storeCarousel.style.setProperty('--currentSlide', '0');
+      $storeCarousel.style.display = 'flex';
+      zoomToStore(Array.from($storeCarousel.children)[currentSlide].id, map);
+    });
+
+    $carouselContainer.addEventListener('click', (e: MouseEvent) => {
+      const slides = Array.from($storeCarousel.children)
+      const target = e.target as HTMLButtonElement;
+      if (target.classList.contains('prev')) {
+        if (currentSlide <= 0) {
+          zoomToStore(slides[currentSlide].id, map);
+        }
+        else {
+          $storeCarousel.style.setProperty('--currentSlide', --currentSlide + '');
+          zoomToStore(slides[currentSlide].id, map);
+          console.log(currentSlide);
+        }
+      }
+      if (target.classList.contains('next')) {
+        if (currentSlide >= slides.length - 1) {
+          zoomToStore(slides[currentSlide].id, map);
+        }
+        else {
+          $storeCarousel.style.setProperty('--currentSlide', ++currentSlide + '');
+          zoomToStore(slides[currentSlide].id, map);
+          console.log(currentSlide);
+        }
+      }
+    })
+};
 
 const fetchData = async (query: string) => {
   try {
@@ -317,8 +361,8 @@ const fetchData = async (query: string) => {
 const renderMap = async (mode: string) => {
   const map = createMap(mode);
   await plotMap(mode, map);
-  // createListNav();
-  // displayListNav();
+  createListNav(mode);
+  displayListCarousel(mode, map);
 };
 
 const initBookStoreMap = async () => {

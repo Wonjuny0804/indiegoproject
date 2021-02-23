@@ -2,7 +2,7 @@ import firebaseConfig from './firebaseSetting'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
 
-const defaultAuth = firebase.auth()
+// const defaultAuth = firebase.auth()
 
