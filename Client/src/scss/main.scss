@@ -100,11 +100,14 @@ header {
   width: 341px;
   max-height: 500px;
   .carousel-slides {
+    display: none;
     --currentSlide: 0;
     --duration: 0;
-    display: flex;
     transition: transform calc(var(--duration) * 1ms) ease-out;
     transform: translate3D(calc(var(--currentSlide) * -100%), 0, 0);
+    img {
+      width: 341px;
+    }
   }
   .carousel-control {
     position: absolute;
@@ -133,7 +136,7 @@ header {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     justify-content: center;
-    li {
+    .display-list-btn {
       font: {
         size: 1.6rem;
         weight: 600;
@@ -147,7 +150,10 @@ header {
       margin: 10px;
       cursor: pointer;
       &:hover {
-        border: 2px solid #b5c55e;
+        border: 2px solid #747474;
+      }
+      &.is-active {
+        background-color: rgb(182, 182, 182);
       }
     }
   }
