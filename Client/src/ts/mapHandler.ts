@@ -1,6 +1,7 @@
 import axios from 'axios';
 import bookicon from '../assets/book-icon.png'
 import filmicon from '../assets/film-icon.png'
+import { firestore } from './firebaseSetting';
 
 declare let kakao: any;
 
@@ -348,11 +349,16 @@ const displayListCarousel = (mode: string, map: any) => {
     })
 };
 
+const theatreColRef = firestore.collection('Theatres');
+const bookstoreColRef = firestore.collection('Bookstores');
+
 const fetchData = async (query: string) => {
   try {
-    const response = await axios.get(`http://localhost:7000/${query}`);
-    const bookstores = response.data;
-    stores = bookstores;
+    const querySnapshot: any = await bookstoreColRef.get();
+
+    querySnapshot.forEach((doc: any) => {
+      stores.push(doc.data());
+    });
   } catch (err) {
     console.log(err);
   }
