@@ -1,4 +1,4 @@
-import firebase from 'firebase/app';
+import { fireauth } from './firebaseSetting';
 import loginLogo from '../assets/login.svg';
 import loginImage from '../assets/login-image.svg';
 // import closeBtn from '../assets/close-btn.svg';
@@ -15,8 +15,9 @@ const login = () => {
   // const $closeBtn = document.querySelector('');
   const $email = document.querySelector('form > #loginEmail') as HTMLInputElement;
   const $password = document.querySelector('form > #loginPwd') as HTMLInputElement;
+  const $signin = document.querySelector('.sign-in') as HTMLButtonElement;
 
-  const deactivate = () => {
+  const initialize = (): void => {
     $login.classList.toggle('is-active');
     $email.value = '';
     $password.value = '';
@@ -32,16 +33,16 @@ const login = () => {
   const closePopUp = (e: Event): void => {
     if (e.target !== $loginbg) return;
 
-    deactivate();
+    initialize();
   }
 
   const signIn = async (e: Event) => {
     e.preventDefault();
 
     try {
-      const user = await firebase.auth().signInWithEmailAndPassword($email.value, $password.value);
-      
-      deactivate();
+      const user = await fireauth.signInWithEmailAndPassword($email.value, $password.value);
+      console.log(user);
+      initialize();
     } 
     catch (error) {
       var errorCode = error.code;
@@ -58,19 +59,21 @@ const login = () => {
   const validationCheck = (e: KeyboardEvent): void => {
     const $inputTarget = e.target as HTMLInputElement;
     const $labelInput = $inputTarget.previousElementSibling as HTMLLabelElement;
+
     let regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/ as RegExp;
-    
     if ($inputTarget.id === 'loginPwd') regExp = /$/ as RegExp;
 
     if (!regExp.test($inputTarget.value) || $inputTarget.value === '') {
-      $labelInput.style.color = 'red'; 
       $inputTarget.classList.add('not-valid');
+      $labelInput.style.color = 'red';
+      $signin.disabled = true;
       } else {
-        console.log(typeof $inputTarget.value);
         $inputTarget.classList.remove('not-valid');
         $labelInput.style.color = '';
+        $signin.disabled = false;
       }
   }
+
 
   $email.addEventListener('keyup', _.throttle(validationCheck, 1000));
   $password.addEventListener('keyup', _.throttle(validationCheck, 1000));
