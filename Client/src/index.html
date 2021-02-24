@@ -78,7 +78,9 @@
             <button class="carousel-control next">&raquo;</button>
           </div>
           <div class="closest-store">
-            <button class="find-closest-btn">가까운 지점 찾기</button>
+            <div class="loc-loader">
+            </div>
+            <span class="info">가까운 지점 찾기</span>
             <ol class="closest-store-list"></ol>
           </div>
         
@@ -97,6 +99,13 @@
             </div>
             <button class="carousel-control prev">&laquo;</button>
             <button class="carousel-control next">&raquo;</button>
+          </div>
+          <div class="closest-store">
+            <button class="find-closest-btn">가까운 지점 찾기
+              <i class="find-icon fas fa-map-marked-alt"></i>
+            </button>
+            <span class="loading">Loading...</span>
+            <ol class="closest-store-list"></ol>
           </div>
           <div class="theatre-map">
             <!-- Here's where 민기's magic happens -->
