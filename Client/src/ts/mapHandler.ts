@@ -4,6 +4,9 @@ import bookicon from '../assets/book-icon.png'
 import filmicon from '../assets/film-icon.png'
 import { firestore } from './firebaseSetting';
 
+
+const bookstoreColRef = firestore.collection('Bookstores');
+const theatreColRef = firestore.collection('Theatres');
 declare let kakao: any;
 
 interface Branch {
@@ -151,8 +154,12 @@ const findNearByStore = async (locPosition: Object, map: any, mode: string) => {
 };
 
 const markCurrentLoc = (map: any, mode: string) => {
-  const $spinner = document.querySelector('.loc-loader') as HTMLElement;
-  $spinner.classList.add('is-loading')
+
+  const $loader =  (mode === 'bookstores')
+  ? document.querySelector('.bookstore-info .loc-loader') as HTMLElement
+  : document.querySelector('.theatre-info .loc-loader') as HTMLElement;
+
+  $loader.classList.add('is-loading')
   const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
   var imageSize = new kakao.maps.Size(24, 35); 
   var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
@@ -160,11 +167,10 @@ const markCurrentLoc = (map: any, mode: string) => {
     navigator.geolocation.getCurrentPosition(position => {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
-
       const locPosition = new kakao.maps.LatLng(lat, lon);
       displayMarker(locPosition, markerImage, map);
       findNearByStore(locPosition, map, mode);
-      $spinner.classList.remove('is-loading');
+      $loader.classList.remove('is-loading');
     });
   } else {
     const locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
@@ -209,7 +215,7 @@ const plotMap = async (mode: string, map: any) => {
       ? bookicon
       : filmicon;
   const imageSize = new kakao.maps.Size(64, 69);
-  const imageOption = { offset: new kakao.maps.Point(27, 69) };
+  const imageOption = { offset: new kakao.maps.Point(27, 69)};
   const markerImage = new kakao.maps.MarkerImage(
     imageSrc,
     imageSize,
@@ -284,8 +290,6 @@ const createListNav = (mode: string) => {
   ?  document.querySelector('.bookstore-info .cities') as HTMLElement 
   : document.querySelector('.theatre-info .cities') as HTMLElement) 
   
-  console.log($storeByRegionTab);
-
   const storeByRegion = stores
     .map((store: Branch, i: number) => {
       return store.region;
@@ -298,8 +302,8 @@ const createListNav = (mode: string) => {
   $storeByRegionTab.innerHTML = storeByRegion
     .map(
       ($menu: any, i: number) =>
-        `<div><input type="radio" name="location" id="${++i}" class="display-list-btn">
-        <label for="${i}">${$menu}</label></div>
+        `<div><input type="radio" name="location" id="${$menu}${++i}" class="display-list-btn">
+        <label for="${$menu}${i}">${$menu}</label></div>
         `
     )
     .join('');
@@ -311,6 +315,7 @@ const displayListCarousel = (mode: string, map: any) => {
   ? document.querySelector('.bookstore-carousel') as HTMLElement
   : document.querySelector('.theatre-carousel') as HTMLElement);
   
+
   const $storeByRegionTab = (mode === 'bookstores' 
   ? document.querySelector('.bookstore-info .cities') as HTMLElement
   : document.querySelector('.theatre-info .cities') as HTMLElement);
@@ -320,19 +325,27 @@ const displayListCarousel = (mode: string, map: any) => {
   : document.querySelector('.theatre-info .theatre-carousel-slides') as HTMLElement);
 
   $storeByRegionTab.addEventListener('change', (e: Event) => {
-    currentSlide = 0;
     const target = e.target as HTMLElement;
+    console.log(target);
     if (!target.classList.contains('display-list-btn')) return;
     const matchingStore = stores.filter(
       (store: Branch) => store.region === target.nextElementSibling?.textContent
     );
-    
+
     $storeCarousel.innerHTML = matchingStore
       .map((store: Branch) => {
-        return `<img id=${store.id} src="${store.img}" alt="${store.name}">`;
+        return `
+        <div class="slide" id=${store.id}> 
+          <img src="${store.img}" alt="${store.name}">
+          <div class="info-panel">
+            <h2>${store.name}</h2>
+            <p>${store.introduction}</p>
+          </div>
+          <div class="overlay"></div> 
+       </div>
+        `;
       })
       .join('');
-    console.log($storeCarousel.children);
     $storeCarousel.style.setProperty('--currentSlide', '0');
     $storeCarousel.style.display = 'flex';
     zoomToStore(Array.from($storeCarousel.children)[currentSlide].id, map, mode);
@@ -341,6 +354,7 @@ const displayListCarousel = (mode: string, map: any) => {
     $carouselContainer.addEventListener('click', (e: MouseEvent) => {
       const slides = Array.from($storeCarousel.children)
       const target = e.target as HTMLButtonElement;
+      
       if (target.classList.contains('prev')) {
         if (currentSlide <= 0) {
           zoomToStore(slides[currentSlide].id, map, mode);
@@ -365,10 +379,6 @@ const displayListCarousel = (mode: string, map: any) => {
       }
     })
 };
-
-
-const bookstoreColRef = firestore.collection('Bookstores');
-const theatreColRef = firestore.collection('Theatres');
 
 const fetchData = async (query: string) => {
   try {
