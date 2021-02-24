@@ -1,4 +1,5 @@
 import { fireauth } from './firebaseSetting';
+import { firestore } from './firebaseSetting';
 import loginLogo from '../assets/login.svg';
 import loginImage from '../assets/login-image.svg';
 import closeBtn from '../assets/close-btn.svg';
@@ -8,6 +9,7 @@ const login = () => {
   // get DOM Elements
   const $login = document.querySelector('.login') as HTMLElement;
   const $loginBtn = document.querySelector('.login-btn') as HTMLButtonElement; 
+  const $logoutBtn = document.querySelector('.logout-btn') as HTMLButtonElement; 
   const $loginForm = document.querySelector('.login-form-container > form') as HTMLFormElement;
   const $loginbg = document.querySelector('.login-popup-bg') as HTMLDivElement;
   const $loginLogo = document.querySelector('.login-logo') as HTMLImageElement;
@@ -17,6 +19,8 @@ const login = () => {
   const $email = document.querySelector('form > #loginEmail') as HTMLInputElement;
   const $password = document.querySelector('form > #loginPwd') as HTMLInputElement;
   const $signin = document.querySelector('.sign-in') as HTMLButtonElement;
+
+  const usersColRef = firestore.collection('Users');
 
   const initialize = (): void => {
     $login.classList.toggle('is-active');
@@ -42,8 +46,18 @@ const login = () => {
     e.preventDefault();
 
     try {
-      const user = await fireauth.signInWithEmailAndPassword($email.value, $password.value);
-      console.log(user);
+      const user: any = await fireauth.signInWithEmailAndPassword($email.value, $password.value);
+
+      const querySnapshot: any = await usersColRef.get();
+
+      querySnapshot.forEach((doc: any) => {
+        if (doc.data().userEmail !== user.user.email) {
+          usersColRef.add({
+            userEmail: user.user.email,
+            favorites: []
+          });
+        }
+      });
       initialize();
     } 
     catch (error) {
@@ -74,7 +88,18 @@ const login = () => {
         $labelInput.style.color = '';
         $signin.disabled = false;
       }
-  }
+  };
+
+  const signOut = async () => {
+    try {
+      const user = await fireauth.signOut();
+      window.alert(`You're signed out!`);
+    } 
+    catch (error) {
+      window.alert(error);
+    }
+  };
+
 
 
 
@@ -84,6 +109,18 @@ const login = () => {
   $loginForm.addEventListener('submit', signIn);
   $loginBtn.addEventListener('click', showPopUp);
   $loginbg.addEventListener('click', closePopUp);
+  $logoutBtn.addEventListener('click', signOut);
+
+  fireauth.onAuthStateChanged(user =>{
+    if (user) {
+      $loginBtn.style.display = 'none';
+      $logoutBtn.style.display = 'block';
+    }
+    else {
+      $loginBtn.style.display = 'block';
+      $logoutBtn.style.display = 'none';
+    }
+  });
 }
 
 export default login;

@@ -1,3 +1,24 @@
+header {
+  .login-btn {
+    @include button;
+    position: absolute;
+    background: none;
+    top: 25px;
+    right: 25px;
+    color: $font-color;
+    font-size: $medium-font;
+  }
+  .logout-btn {
+    @include button;
+    position: absolute;
+    background: none;
+    top: 25px;
+    right: 25px;
+    color: $font-color;
+    font-size: $medium-font;
+    display: none;
+  }
+}
 
 .landing {
   @include flexCenter;
