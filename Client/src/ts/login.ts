@@ -56,6 +56,7 @@ const login = () => {
         }
       });
       initialize($loginInputs);
+      closePopup($login);
     } 
     catch (error) {
       var errorCode = error.code;
