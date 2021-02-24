@@ -3,6 +3,7 @@ import loginLogo from '../assets/login.svg';
 import loginImage from '../assets/login-image.svg';
 import closeBtn from '../assets/close-btn.svg';
 import _ from 'lodash';
+import { initialize, openPopup, closePopup } from './utils';
 
 const login = () => {
   // get DOM Elements
@@ -15,27 +16,29 @@ const login = () => {
   const $closeBtn = document.querySelector('.close-btn') as HTMLSpanElement;
   const $closeBtnImg = $closeBtn.firstElementChild as HTMLImageElement;
   const $email = document.querySelector('form > #loginEmail') as HTMLInputElement;
+  const $loginInputs = document.querySelectorAll('form input') as NodeList;
   const $password = document.querySelector('form > #loginPwd') as HTMLInputElement;
   const $signin = document.querySelector('.sign-in') as HTMLButtonElement;
 
-  const initialize = (): void => {
-    $login.classList.toggle('is-active');
-    $email.value = '';
-    $password.value = '';
-  }
+  // const initialize = (): void => {
+  //   $login.classList.toggle('is-active');
+  //   $email.value = '';
+  //   $password.value = '';
+  // }
 
-  const showPopUp = (): void => {
+  const loader = (): void => {
     $loginLogo.src = loginLogo;
     $loginImage.src = loginImage;
     $closeBtnImg.src = closeBtn;
 
-    $login.classList.toggle('is-active'); 
+    openPopup($login);
   }
 
   const closePopUp = (e: Event): void => {
     if (e.target !== $loginbg && e.target !== $closeBtnImg) return;
 
-    initialize();
+    initialize($loginInputs);
+    closePopup($login);
   }
 
   const signIn = async (e: Event) => {
@@ -44,7 +47,7 @@ const login = () => {
     try {
       const user = await fireauth.signInWithEmailAndPassword($email.value, $password.value);
       console.log(user);
-      initialize();
+      initialize($loginInputs);
     } 
     catch (error) {
       var errorCode = error.code;
@@ -63,15 +66,15 @@ const login = () => {
     const $labelInput = $inputTarget.previousElementSibling as HTMLLabelElement;
 
     let regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/ as RegExp;
-    if ($inputTarget.id === 'loginPwd') regExp = /$/ as RegExp;
+    if ($inputTarget.id === 'loginPwd') regExp = /$/;
 
     if (!regExp.test($inputTarget.value) || $inputTarget.value === '') {
       $inputTarget.classList.add('not-valid');
-      $labelInput.style.color = 'red';
+      $labelInput.classList.add('not-valid');
       $signin.disabled = true;
       } else {
         $inputTarget.classList.remove('not-valid');
-        $labelInput.style.color = '';
+        $labelInput.classList.remove('not-valid');
         $signin.disabled = false;
       }
   }
@@ -82,7 +85,7 @@ const login = () => {
   $password.addEventListener('keyup', _.throttle(validationCheck, 1000));
   $email.addEventListener('focus', labelTransition);
   $loginForm.addEventListener('submit', signIn);
-  $loginBtn.addEventListener('click', showPopUp);
+  $loginBtn.addEventListener('click', loader);
   $loginbg.addEventListener('click', closePopUp);
 }
 
