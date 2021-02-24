@@ -23,7 +23,6 @@
         <span class="login-btn-txt">LOGIN</span>
       </button>
     </header>
-
     <main class="main">
       <div class="landing"></div>
       <section class="login">
@@ -50,25 +49,25 @@
         </div>
       </section>
       <section class="registration">
-        <h1 class="registration-heading">
-          <i class="fas fa-user-plus"></i>
-          <span class="registration-txt">MEMBER REGISTRATION</span>
-        </h1>
-        <form class="registration-form">
-          <label for="regiEmail">이메일</label>
-          <input type="email" id="regiEmail" class="registration-email" />
-          <label for="regiName">이름</label>
-          <input type="text" id="regiName" class="registration-name" />
-          <label for="regiPw">비밀번호</label>
-          <input type="password" id="regiPw" class="registration-pw" />
-          <label for="regiPwConfirm">비밀번호 확인</label>
-          <input
-            type="password"
-            id="regiPwConfirm"
-            class="registration-pw-confirm"
-          />
-          <button class="register-confirm-btn">확인</button>
-        </form>
+        <div class="signup-popup-bg">
+          <section class="signup-popup-container">
+            <h1 class="registration-heading">
+              <i class="fas fa-user-plus"></i>
+              <span class="registration-txt">MEMBER REGISTRATION</span>
+            </h1>
+            <form class="registration-form">
+              <label for="regiName">이름</label>
+              <input type="text" id="regiName" class="registration-name" />
+              <label for="regiEmail">이메일</label>
+              <input type="email" id="regiEmail" class="registration-email" />
+              <label for="regiPw">비밀번호</label>
+              <input type="password" id="regiPw" class="registration-pw" />
+              <label for="regiPwConfirm">비밀번호 확인</label>
+              <input type="password" id="regiPwConfirm" class="registration-pw-confirm"/>
+              <button class="register-confirm-btn">submit</button>
+            </form>
+          </section>
+        </div>
       </section>
       <section class="menu">
         <div class="menu-btns">
