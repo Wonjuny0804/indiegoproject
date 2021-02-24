@@ -1,0 +1,133 @@
+.signup {
+    display: none;
+    .signup-popup-bg {
+      background-color: rgba(0, 0, 0, 0.5);
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      position:fixed;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+  
+      .signup-popup-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: $popup-color;
+        width: 80%;
+        height: 85%;
+        padding: 30px;
+        box-sizing: border-box;
+        position: relative;
+        border-radius: 1px;
+  
+        .signup-logo {
+          width: 10vh;
+          position: absolute;
+          left: 80px;
+          top: 80px;
+        }
+  
+        .signup-image {
+          margin-top: 60px;
+          width: 30%;
+          border-radius: 1px;
+        }
+      
+        .signup-form {
+          margin-top: 30px;
+          width: 80%;
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column; 
+        }
+        label {
+          // position: absolute;
+          margin-top: 5px;
+          left: 10px;
+          font-size: 2rem;
+          // transition: font-size 1s;
+        }
+        input {
+          padding: 0;
+          margin: 5px;
+          background-color: transparent;
+          border-style: none;
+          border-bottom: 1px solid $font-color;
+          width: 50%;
+          height: 5vh;
+          font-size: 2rem;
+          font-family: 'roboto';
+          font-weight: 500;
+          text-align: center;
+          color: black;
+          outline: none;
+    
+        }
+        .not-valid {
+          color: red;
+          border-color: red;
+        }
+  
+        .pwd-different {
+          color: blue;
+          border-color: blue;
+        }
+      }
+      button {
+        font-family: 'roboto';
+        font-size: 2rem;
+        height: 8vh;
+        width: 30%;
+        margin: 20px 30px;
+        display: inline-block;
+        text-align: center;
+        background-color: transparent;
+        border-radius: 1px;
+        border: 1px solid $font-color;
+        outline: none;
+        text-transform: uppercase;
+        cursor: pointer;
+        
+        &:hover {
+          background-color: $font-color;
+          color: $base-color;
+        }
+  
+        &[disabled] {
+          background-color: $font-color;
+          color: $base-color;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+  .is-active {
+    display: block;
+  }
+
+
+
+// @include desktop {
+//   .signup {
+//     .signup-popup-bg {
+//       width: 100%;
+//     }
+//     .signup-logo {
+//       width: 10vh;
+//       top: 80px;
+//       left: 80px;
+//     }
+//     .signup-image {
+//       width: 10%;
+//     }
+//   }
+// }
