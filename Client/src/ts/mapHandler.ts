@@ -2,6 +2,7 @@ import axios from 'axios';
 import { map } from 'lodash';
 import bookicon from '../assets/book-icon.png'
 import filmicon from '../assets/film-icon.png'
+import { firestore } from './firebaseSetting';
 
 declare let kakao: any;
 
@@ -187,6 +188,7 @@ const plotMap = async (mode: string, map: any) => {
   ? document.querySelector('.bookstore-info .loc-loader') as HTMLElement
   : document.querySelector('.theatre-info .loc-loader') as HTMLElement;
 
+
   const clusterer = new kakao.maps.MarkerClusterer({
     map: map,
     averageCenter: true,  
@@ -280,10 +282,12 @@ const createListNav = (mode: string) => {
   const stores = mode === 'bookstores' ? bookstores : theatres;
   const $storeByRegionTab = (mode ==='bookstores' 
   ?  document.querySelector('.bookstore-info .cities') as HTMLElement 
-  : document.querySelector('.theatre-info .cities') as HTMLElement);
+  : document.querySelector('.theatre-info .cities') as HTMLElement) 
+  
+  console.log($storeByRegionTab);
 
   const storeByRegion = stores
-    .map((store: Branch) => {
+    .map((store: Branch, i: number) => {
       return store.region;
     })
     .filter(
@@ -293,15 +297,16 @@ const createListNav = (mode: string) => {
 
   $storeByRegionTab.innerHTML = storeByRegion
     .map(
-      ($menu: any) =>
-        `<li class="display-list-btn">${$menu}</li>`
+      ($menu: any, i: number) =>
+        `<div><input type="radio" name="location" id="${++i}" class="display-list-btn">
+        <label for="${i}">${$menu}</label></div>
+        `
     )
     .join('');
 };
 
 const displayListCarousel = (mode: string, map: any) => {
   const stores = mode === 'bookstores' ? bookstores : theatres;
-
   const $carouselContainer = (mode === 'bookstores'
   ? document.querySelector('.bookstore-carousel') as HTMLElement
   : document.querySelector('.theatre-carousel') as HTMLElement);
@@ -314,25 +319,23 @@ const displayListCarousel = (mode: string, map: any) => {
   ? document.querySelector('.bookstore-info .bookstore-carousel-slides') as HTMLElement
   : document.querySelector('.theatre-info .theatre-carousel-slides') as HTMLElement);
 
-
-  $storeByRegionTab.addEventListener('click', (e: MouseEvent) => {
+  $storeByRegionTab.addEventListener('change', (e: Event) => {
     currentSlide = 0;
     const target = e.target as HTMLElement;
-
     if (!target.classList.contains('display-list-btn')) return;
     const matchingStore = stores.filter(
-      (store: Branch) => store.region === target.textContent
+      (store: Branch) => store.region === target.nextElementSibling?.textContent
     );
-
+    
     $storeCarousel.innerHTML = matchingStore
       .map((store: Branch) => {
         return `<img id=${store.id} src="${store.img}" alt="${store.name}">`;
       })
       .join('');
-
-      $storeCarousel.style.setProperty('--currentSlide', '0');
-      $storeCarousel.style.display = 'flex';
-      zoomToStore(Array.from($storeCarousel.children)[currentSlide].id, map, mode);
+    console.log($storeCarousel.children);
+    $storeCarousel.style.setProperty('--currentSlide', '0');
+    $storeCarousel.style.display = 'flex';
+    zoomToStore(Array.from($storeCarousel.children)[currentSlide].id, map, mode);
     });
 
     $carouselContainer.addEventListener('click', (e: MouseEvent) => {
@@ -344,6 +347,7 @@ const displayListCarousel = (mode: string, map: any) => {
         }
         else {
           $storeCarousel.style.setProperty('--currentSlide', --currentSlide + '');
+          $storeCarousel.style.setProperty('--duration', 500 + '');
           zoomToStore(slides[currentSlide].id, map, mode);
           console.log(currentSlide);
         }
@@ -354,22 +358,31 @@ const displayListCarousel = (mode: string, map: any) => {
         }
         else {
           $storeCarousel.style.setProperty('--currentSlide', ++currentSlide + '');
+          $storeCarousel.style.setProperty('--duration', 500 + '');
           zoomToStore(slides[currentSlide].id, map, mode);
-  
+          console.log(currentSlide);
         }
       }
     })
 };
 
+
+const bookstoreColRef = firestore.collection('Bookstores');
+const theatreColRef = firestore.collection('Theatres');
+
 const fetchData = async (query: string) => {
   try {
-    const response = await axios.get(`http://localhost:7000/${query}`);
-    const stores = response.data;
-    query === 'bookstores' ? bookstores = stores : theatres = stores ;
-  } catch (err) {
-    console.log(err);
+  if (query === 'bookstores') {
+  const bookSnapshot: any = await bookstoreColRef.get();
+  bookSnapshot.forEach((doc: any) => bookstores.push(doc.data()))
+  } else {
+  const theatreSnapshot: any = await theatreColRef.get();
+  theatreSnapshot.forEach((doc: any) => theatres.push(doc.data()))
   }
-};
+  } catch (err) {
+  console.log(err);
+  }
+  };
 
 const renderMap = async (mode: string) => {
   const map = createMap(mode);

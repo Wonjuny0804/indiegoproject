@@ -1,12 +1,12 @@
- 
-  .landing {
-    @include flexCenter;
-    height: 100vh;
-    img {
-      width: 200px;
-      height: 200px;
-    }
+
+.landing {
+  @include flexCenter;
+  height: 100vh;
+  img {
+    width: 300px;
+    height: 300px;
   }
+}
 
   @include mobile {
     .landing {
@@ -16,8 +16,11 @@
         width: 150px;
         height: 150px;
       }
+      width: 150px;
+      height: 150px;
     }
   }
+
 
 .main {
   background: $secondary-color;
@@ -176,7 +179,6 @@
   margin: 0 auto;
   overflow: hidden;
   width: 341px;
-  max-height: 500px;
   .carousel-slides {
     display: none;
     --currentSlide: 0;
@@ -206,7 +208,7 @@
   }
 }
 .city-selection {
-  width: 120px;
+  // width: 120px;
   margin: 0 auto;
   padding: 10px;
   font-size: 1.6rem;
@@ -214,25 +216,54 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     justify-content: center;
-    .display-list-btn {
-      font: {
-        size: 1.6rem;
-        font-weight: 600;
-      }
-      color: #fff;
-      background: #dbbf94;
-      padding: 10px;
-      width: 50px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    div {
+      height: 49px;
+      line-height: 49px;
+      border: 1px solid #454a60;
       text-align: center;
-      border-radius: 5px;
-      margin: 10px;
-      cursor: pointer;
-      &:hover {
-        border: 2px solid #747474;
+      margin: 5px;
+      label {
+        display: block;
+        width: 100%;
+        height: 100%;
+        color: #454a60;
+        vertical-align: middle;
+        box-sizing: border-box;
+        cursor: pointer;
+        &:hover {
+          background-color: #454a60;
+          color: #fff;
+        }
       }
-      &.is-active {
-        background-color: rgb(182, 182, 182);
+      input[type='radio']:checked + label {
+        background-color: #454a60;
+        color: #fff;
       }
+    }
+    .display-list-btn {
+      overflow: hidden !important;
+      position: absolute !important;
+      left: -9999px !important;
+      width: 1px;
+      height: 1px;
+
+      // font: {
+      //   size: 1.6rem;
+      //   weight: 600;
+      // }
+      // color: #fff;
+      // background: #dbbf94;
+      // padding: 10px;
+      // width: 50px;
+      // text-align: center;
+      // border-radius: 5px;
+      // margin: 10px;
+      // cursor: pointer;
+      // &:hover {
+      //   border: 2px solid #747474;
+      // }
     }
   }
 }
