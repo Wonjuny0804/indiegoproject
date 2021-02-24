@@ -8,27 +8,37 @@ header {
     color: $font-color;
     font-size: $medium-font;
   }
+  .logout-btn {
+    @include button;
+    position: absolute;
+    background: none;
+    top: 25px;
+    right: 25px;
+    color: $font-color;
+    font-size: $medium-font;
+    display: none;
+  }
 }
 
 .landing {
   @include flexCenter;
   height: 100vh;
   img {
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
   }
 }
-
-@include mobile {
-  .landing {
-    @include flexCenter;
-    height: 100vh;
-    img {
-      width: 150px;
-      height: 150px;
+  @include mobile {
+    .landing {
+      @include flexCenter;
+      height: 80vh;
+      img {
+        width: 150px;
+        height: 150px;
+      }
     }
   }
-}
+
 
 .main {
   background: $secondary-color;
@@ -36,6 +46,88 @@ header {
     .is-active {
       display: block;
     }
+    .closest-store {
+      @include flexCenter;
+      flex-direction: column;
+      margin: 15px 0;
+      .find-closest-btn {
+        @include button;
+        background-color: transparent;
+        color: gray;
+        border: 1px solid rgba(201, 201, 201, 0.358);
+        transition: 0.5s;
+        &:hover {
+          background-color: rgba(227, 227, 227, 0.557);
+        }
+        svg {
+          margin-left: 15px;
+        }
+      }
+      
+      .locate-store-btn {
+        @include button;
+        padding: 0;
+        background-color: transparent;
+        width:120px;
+        padding:0 5px;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+      }
+    
+      @include desktop {
+        .closest-store-list {
+          width: 400px;
+        }
+      }
+
+      @include tablet {
+        .closest-store-list {
+          width: 300px;
+        }
+      }
+
+      .info {
+        margin-top: 15px;
+        color: $font-color;
+      }
+
+      .closest-store-list {
+        color: rgb(82, 82, 82);
+        position: relative;
+        max-width: 400px;
+        padding: 10px; 
+
+        li {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          background: rgba(43, 43, 43, 0.1);
+          padding: 10px 20px;
+          color: #fff;
+          margin: 5px;
+          transition: 0.5s;
+          &:nth-child(2) {
+            background: rgb(204, 196, 185)
+          }
+          li:nth-child(3) {
+            background: rgb(154, 145, 134)
+          }
+          &:hover {
+            transform: scale(1.05); 
+            background: rgba(242, 235, 226, 0.356);
+          }
+        }
+        .distance-info {
+          color: #666;
+        }
+        a{
+          font-size: 1.3rem;
+        }
+      }
+
+    }
+    
   }
 }
 
@@ -44,6 +136,7 @@ header {
   justify-content: space-around;
   align-items: center;
   margin-bottom: 30px;
+  padding: 20px;
   & button {
     font-size: 5rem;
     color: $font-color;
@@ -51,12 +144,18 @@ header {
     background: transparent;
     cursor: pointer;
     outline: none;
+    transition: 0.5s;
+    &:hover {
+      transform: scale(1.05);
+      color: #dddddd;
+    }
   }
 }
 
 .bookstore-info {
   padding: 25px;
-  background: $base-color;
+  background-image:
+    linear-gradient(to bottom, #F7F0E5, rgba(255, 255, 255, 0.934));
   display: none;
   position: relative;
   &:after {
@@ -96,8 +195,7 @@ header {
   position: relative;
   margin: 0 auto;
   overflow: hidden;
-  width: 341px;
-  max-height: 500px;
+  width: 300px;
   .carousel-slides {
     display: none;
     --currentSlide: 0;
@@ -105,15 +203,32 @@ header {
     transition: transform calc(var(--duration) * 1ms) ease-out;
     transform: translate3D(calc(var(--currentSlide) * -100%), 0, 0);
     img {
-      width: 341px;
+      width: 300px;
+      height: 200px;
     }
+    .info-panel {
+      background-color: pink;
+      height: 150px;
+      padding: 10px;
+      border-radius: 2px;
+
+      
+      h2 {
+        font-size: 1.3rem;
+      }
+      p {
+        margin-top: 10px;
+      }
+    }
+    
+  
   }
   .carousel-control {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     font-size: 2em;
-    color: #fff;
+    color: black;
     background-color: transparent;
     border-color: transparent;
     cursor: pointer;
@@ -126,8 +241,9 @@ header {
     }
   }
 }
+
 .city-selection {
-  width: 120px;
+  width: 600px;
   margin: 0 auto;
   padding: 10px;
   font-size: 1.6rem;
@@ -135,25 +251,58 @@ header {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     justify-content: center;
-    .display-list-btn {
-      font: {
-        size: 1.6rem;
-        weight: 600;
-      }
-      color: #fff;
-      background: #dbbf94;
-      padding: 10px;
-      width: 50px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    div {
+      height: 49px;
+      line-height: 49px;
+      border: 1px solid #a8a5a1;
       text-align: center;
-      border-radius: 5px;
-      margin: 10px;
-      cursor: pointer;
-      &:hover {
-        border: 2px solid #747474;
+      margin: 5px;
+      label {
+        display: block;
+        width: 100%;
+        height: 100%;
+        color: $font-color;
+        vertical-align: middle;
+        box-sizing: border-box;
+        cursor: pointer;
+        transition: 0.5s;
+        &:hover {
+          background-color: #d5d5d55f;
+
+        }
       }
-      &.is-active {
-        background-color: rgb(182, 182, 182);
+      input[type='radio']:checked + label {
+        background-color: #e6d2ae7b;
       }
     }
+    .display-list-btn {
+      overflow: hidden !important;
+      position: absolute !important;
+      left: -9999px !important;
+      width: 1px;
+      height: 1px;
+    }
   }
+}
+
+
+@include tablet {
+  .city-selection {
+    width: 300px;
+    .cities {
+      grid-template-columns: repeat(2, 1fr);
+    }
+   }
+}
+
+@include mobile {
+  .city-selection {
+    width: 100%;
+    padding: 0;
+    .cities {
+      grid-template-columns: repeat(1, 1fr);
+    }
+   }
 }

@@ -22,6 +22,10 @@
         <i class="fas fa-unlock-alt"></i>
         <span class="login-btn-txt">LOGIN</span>
       </button>
+      <button class="logout-btn" type="button">
+        <i class="fas fa-unlock-alt"></i>
+        <span class="logout-btn-txt">LOGOUT</span>
+      </button>
     </header>
     <main class="main">
       <div class="landing"></div>
@@ -33,9 +37,9 @@
             <div class="login-form-container">
               <form>
                 <label for="loginEmail">Email</label>
-                <input id="loginEmail" autocomplete="off">
+                <input id="loginEmail" autocomplete="off" />
                 <label for="loginPwd">Password</label>
-                <input id="loginPwd" type="password" autocomplete="off">
+                <input id="loginPwd" type="password" autocomplete="off" />
                 <div class="btn-wrapper">
                   <button class="sign-up" type="button">sign up</button>
                   <button class="sign-in" disabled>sign in</button>
@@ -43,7 +47,7 @@
               </form>
             </div>
             <span class="close-btn">
-              <img src="" alt="close button">
+              <img src="" alt="close button" />
             </span>
           </section>
         </div>
@@ -79,8 +83,18 @@
           <button class="theatre-info-btn"><i class="fas fa-video"></i></button>
         </div>
         <div class="bookstore-info is-active">
+          <div class="closest-store">
+            <div class="loc-loader">
+            </div>
+            <span class="info">가까운 지점 찾기</span>
+            <ol class="closest-store-list"></ol>
+          </div>
+
+          <div class="bookstore-map">
+            <!-- Here's where 민기's magic happens -->
+          </div>
           <div class="city-selection">
-            <ul class="cities"></ul>
+            <div class="cities"></div>
           </div>
           <div class="bookstore-carousel carousel">
             <!-- If you want, you can 동적 생성 stuffs below -->
@@ -88,27 +102,26 @@
             <button class="carousel-control prev">&laquo;</button>
             <button class="carousel-control next">&raquo;</button>
           </div>
-          <div class="closest-store">
-            <button class="find-closest-btn">가까운 지점 찾기</button>
-            <ol class="closest-store-list"></ol>
-          </div>
 
-          <div class="bookstore-map">
-            <!-- Here's where 민기's magic happens -->
-          </div>
         </div>
         <div class="theatre-info">
+          <div class="closest-store">
+            <div class="loc-loader">
+            </div>
+            <span class="info">가까운 지점 찾기</span>
+            <ol class="closest-store-list"></ol>
+          </div>
+          <div class="theatre-map">
+            <!-- Here's where 민기's magic happens -->
+          </div>
           <div class="city-selection">
-            <ul class="cities"></ul>
+            <div class="cities"></div>
           </div>
           <div class="theatre-carousel carousel">
             <!-- If you want, you can 동적 생성 stuffs below -->
             <div class="theatre-carousel-slides carousel-slides"></div>
             <button class="carousel-control prev">&laquo;</button>
             <button class="carousel-control next">&raquo;</button>
-          </div>
-          <div class="theatre-map">
-            <!-- Here's where 민기's magic happens -->
           </div>
         </div>
       </section>

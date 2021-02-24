@@ -42,13 +42,13 @@ a {
 
 // breakpoint
 @mixin mobile {
-  @media (min-width: $breakpoint-mobile) and (max-width: $breakpoint-tablet - 1px) {
+  @media (min-width: 0) and (max-width: $breakpoint-mobile - 1px) {
     @content;
   }
 }
 
 @mixin tablet {
-  @media (min-width: #{$breakpoint-tablet}) and (max-width: $breakpoint-desktop - 1px) {
+  @media (min-width: #{$breakpoint-mobile}) and (max-width: $breakpoint-tablet - 1px) {
     @content;
   }
 }
@@ -57,4 +57,16 @@ a {
   @media (min-width: $breakpoint-desktop - 1px) {
     @content;
   }
+}
+
+
+@-webkit-keyframes mapping{
+  0% {top: 0;}
+  50%{top: -5px;}
+  100% {top:0; }
+}
+@-moz-keyframes mapping{
+  0% {top: 0;}
+  50%{top: -5px;}
+  100% {top:0; }
 }
