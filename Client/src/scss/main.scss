@@ -151,6 +151,10 @@ header {
         vertical-align: middle;
         box-sizing: border-box;
         cursor: pointer;
+        &:hover {
+          background-color: #454a60;
+          color: #fff;
+        }
       }
       input[type='radio']:checked + label {
         background-color: #454a60;
