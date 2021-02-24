@@ -8,6 +8,7 @@ const login = () => {
   // get DOM Elements
   const $login = document.querySelector('.login') as HTMLElement;
   const $loginBtn = document.querySelector('.login-btn') as HTMLButtonElement; 
+  const $logoutBtn = document.querySelector('.logout-btn') as HTMLButtonElement; 
   const $loginForm = document.querySelector('.login-form-container > form') as HTMLFormElement;
   const $loginbg = document.querySelector('.login-popup-bg') as HTMLDivElement;
   const $loginLogo = document.querySelector('.login-logo') as HTMLImageElement;
@@ -74,7 +75,18 @@ const login = () => {
         $labelInput.style.color = '';
         $signin.disabled = false;
       }
-  }
+  };
+
+  const signOut = async () => {
+    try {
+      const user = await fireauth.signOut();
+      window.alert(`You're signed out!`);
+    } 
+    catch (error) {
+      window.alert(error);
+    }
+  };
+
 
 
 
@@ -84,6 +96,18 @@ const login = () => {
   $loginForm.addEventListener('submit', signIn);
   $loginBtn.addEventListener('click', showPopUp);
   $loginbg.addEventListener('click', closePopUp);
+  $logoutBtn.addEventListener('click', signOut);
+
+  fireauth.onAuthStateChanged(user =>{
+    if (user) {
+      $loginBtn.style.display = 'none';
+      $logoutBtn.style.display = 'block';
+    }
+    else {
+      $loginBtn.style.display = 'block';
+      $logoutBtn.style.display = 'none';
+    }
+  });
 }
 
 export default login;
