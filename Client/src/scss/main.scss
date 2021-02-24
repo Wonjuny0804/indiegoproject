@@ -18,6 +18,16 @@ header {
     font-size: $medium-font;
     display: none;
   }
+  .favorite-btn {
+    @include button;
+    position: absolute;
+    background: none;
+    top: 25px;
+    right: 150px;
+    color: $font-color;
+    font-size: $medium-font;
+    display: none;
+  }
 }
 
 .landing {
