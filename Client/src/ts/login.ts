@@ -1,4 +1,5 @@
 import { fireauth } from './firebaseSetting';
+import { firestore } from './firebaseSetting';
 import loginLogo from '../assets/login.svg';
 import loginImage from '../assets/login-image.svg';
 import closeBtn from '../assets/close-btn.svg';
@@ -18,6 +19,8 @@ const login = () => {
   const $email = document.querySelector('form > #loginEmail') as HTMLInputElement;
   const $password = document.querySelector('form > #loginPwd') as HTMLInputElement;
   const $signin = document.querySelector('.sign-in') as HTMLButtonElement;
+
+  const usersColRef = firestore.collection('Users');
 
   const initialize = (): void => {
     $login.classList.toggle('is-active');
@@ -43,8 +46,18 @@ const login = () => {
     e.preventDefault();
 
     try {
-      const user = await fireauth.signInWithEmailAndPassword($email.value, $password.value);
-      console.log(user);
+      const user: any = await fireauth.signInWithEmailAndPassword($email.value, $password.value);
+
+      const querySnapshot: any = await usersColRef.get();
+
+      querySnapshot.forEach((doc: any) => {
+        if (doc.data().userEmail !== user.user.email) {
+          usersColRef.add({
+            userEmail: user.user.email,
+            favorites: []
+          });
+        }
+      });
       initialize();
     } 
     catch (error) {
