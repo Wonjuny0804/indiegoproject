@@ -97,7 +97,8 @@ header {
       }
 
       .info {
-        margin-top: 15px;
+        margin-top: 30px;
+        margin-left: 15px;
         color: $font-color;
       }
 
@@ -183,8 +184,9 @@ header {
   }
 }
 .theatre-info {
+  background-image:
+    linear-gradient(to bottom, #F7F0E5, rgba(255, 255, 255, 0.934));
   padding: 25px;
-  background: $base-color;
   display: none;
   position: relative;
   &:after {
@@ -201,10 +203,12 @@ header {
     margin-top: -20px;
   }
 }
+
 .carousel {
   position: relative;
   margin: 0 auto;
   overflow: hidden;
+    transform: translate(0, 0);
   width: 300px;
   .carousel-slides {
     display: none;
@@ -216,17 +220,44 @@ header {
       width: 300px;
       height: 200px;
     }
+    .slide {
+    
+      position: relative;
+      .overlay {
+        @include flexCenter;
+        transition: 0.3s;
+        position: absolute;
+        top: 0;
+        height: 200px;
+        width: 100%;
+        opacity: 0;
+      }
+      &:hover {
+        .overlay {
+          opacity: 1;
+          background-color: rgba(255, 192, 203, 0.253);
+          svg {
+            color: $secondary-color;
+            font-size: 3rem;
+            margin: 0 15px;
+         
+          }
+        }
+      }
+    }
     .info-panel {
-      background-color: pink;
-      height: 150px;
-      padding: 10px;
-      border-radius: 2px;
-
+      background-color: #f1e5d29e;
+      height: 80px;
+      padding: 20px;
+      overflow: scroll;
+      text-align: center;
       h2 {
         font-size: 1.3rem;
       }
       p {
         margin-top: 10px;
+        line-height: 1.5;
+        padding: 0 30px;
       }
     }
     .favorite-btn {
@@ -235,13 +266,18 @@ header {
   .carousel-control {
     position: absolute;
     top: 50%;
+    height: 100%;
     transform: translateY(-50%);
-    font-size: 2em;
-    color: black;
+    font-size: 5em;
+    color: $secondary-color;
     background-color: transparent;
     border-color: transparent;
     cursor: pointer;
     z-index: 99;
+    outline: 0;
+    &:hover {
+      color: $base-color;
+    }
     &.prev {
       left: 0;
     }
@@ -253,7 +289,7 @@ header {
 
 .city-selection {
   width: 600px;
-  margin: 0 auto;
+  margin: 15px auto;
   padding: 10px;
   font-size: 1.6rem;
   .cities {
@@ -282,7 +318,7 @@ header {
         }
       }
       input[type='radio']:checked + label {
-        background-color: #e6d2ae7b;
+        background-color: #e3ddd5
       }
     }
     .display-list-btn {
