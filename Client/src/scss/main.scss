@@ -28,17 +28,16 @@ header {
     height: 200px;
   }
 }
-  @include mobile {
-    .landing {
-      @include flexCenter;
-      height: 80vh;
-      img {
-        width: 150px;
-        height: 150px;
-      }
+@include mobile {
+  .landing {
+    @include flexCenter;
+    height: 80vh;
+    img {
+      width: 150px;
+      height: 150px;
     }
   }
-
+}
 
 .main {
   background: $secondary-color;
@@ -63,18 +62,18 @@ header {
           margin-left: 15px;
         }
       }
-      
+
       .locate-store-btn {
         @include button;
         padding: 0;
         background-color: transparent;
-        width:120px;
-        padding:0 5px;
-        overflow:hidden;
-        text-overflow:ellipsis;
-        white-space:nowrap;
+        width: 120px;
+        padding: 0 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
-    
+
       @include desktop {
         .closest-store-list {
           width: 400px;
@@ -96,7 +95,7 @@ header {
         color: rgb(82, 82, 82);
         position: relative;
         max-width: 400px;
-        padding: 10px; 
+        padding: 10px;
 
         li {
           display: flex;
@@ -108,26 +107,24 @@ header {
           margin: 5px;
           transition: 0.5s;
           &:nth-child(2) {
-            background: rgb(204, 196, 185)
+            background: rgb(204, 196, 185);
           }
           li:nth-child(3) {
-            background: rgb(154, 145, 134)
+            background: rgb(154, 145, 134);
           }
           &:hover {
-            transform: scale(1.05); 
+            transform: scale(1.05);
             background: rgba(242, 235, 226, 0.356);
           }
         }
         .distance-info {
           color: #666;
         }
-        a{
+        a {
           font-size: 1.3rem;
         }
       }
-
     }
-    
   }
 }
 
@@ -154,8 +151,11 @@ header {
 
 .bookstore-info {
   padding: 25px;
-  background-image:
-    linear-gradient(to bottom, #F7F0E5, rgba(255, 255, 255, 0.934));
+  background-image: linear-gradient(
+    to bottom,
+    #f7f0e5,
+    rgba(255, 255, 255, 0.934)
+  );
   display: none;
   position: relative;
   &:after {
@@ -212,7 +212,6 @@ header {
       padding: 10px;
       border-radius: 2px;
 
-      
       h2 {
         font-size: 1.3rem;
       }
@@ -220,8 +219,8 @@ header {
         margin-top: 10px;
       }
     }
-    
-  
+    .favorite-btn {
+    }
   }
   .carousel-control {
     position: absolute;
@@ -270,7 +269,6 @@ header {
         transition: 0.5s;
         &:hover {
           background-color: #d5d5d55f;
-
         }
       }
       input[type='radio']:checked + label {
@@ -287,14 +285,13 @@ header {
   }
 }
 
-
 @include tablet {
   .city-selection {
     width: 300px;
     .cities {
       grid-template-columns: repeat(2, 1fr);
     }
-   }
+  }
 }
 
 @include mobile {
@@ -304,5 +301,5 @@ header {
     .cities {
       grid-template-columns: repeat(1, 1fr);
     }
-   }
+  }
 }

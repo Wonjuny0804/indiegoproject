@@ -3,10 +3,13 @@ import { map } from 'lodash';
 import bookicon from '../assets/book-icon.png'
 import filmicon from '../assets/film-icon.png'
 import { firestore } from './firebaseSetting';
+import { fireauth } from './firebaseSetting';
 
 
 const bookstoreColRef = firestore.collection('Bookstores');
 const theatreColRef = firestore.collection('Theatres');
+const usersColRef = firestore.collection('Users');
+let bookinfos: string[] = [];
 declare let kakao: any;
 
 interface Branch {
@@ -37,6 +40,7 @@ const $bookStoreBtn = document.querySelector('.bookstore-info-btn') as HTMLButto
 const $theatreBtn = document.querySelector('.theatre-info-btn') as HTMLButtonElement;
 const $bookStoreInfo = document.querySelector('.bookstore-info') as HTMLElement;
 const $theatreInfo = document.querySelector('.theatre-info') as HTMLElement;
+const $bookstoreCarousel = document.querySelector('.bookstore-carousel-slides') as HTMLElement;
 
 
 
@@ -341,7 +345,8 @@ const displayListCarousel = (mode: string, map: any) => {
             <h2>${store.name}</h2>
             <p>${store.introduction}</p>
           </div>
-          <div class="overlay"></div> 
+          <div class="overlay"></div>
+          <button type="button" class="favorite-btn">❤︎</button>
        </div>
         `;
       })
@@ -353,7 +358,7 @@ const displayListCarousel = (mode: string, map: any) => {
 
     $carouselContainer.addEventListener('click', (e: MouseEvent) => {
       const slides = Array.from($storeCarousel.children)
-      const target = e.target as HTMLButtonElement;
+      const target = e.target as   HTMLButtonElement;
       
       if (target.classList.contains('prev')) {
         if (currentSlide <= 0) {
@@ -444,6 +449,29 @@ const mapHandler = () => {
       }
     });
   });
+
+  $bookstoreCarousel.addEventListener('click', async (e: any) => {
+    const id = +e.target.parentNode.id;
+    const bookstoreQuerySnapshot = await bookstoreColRef.get();
+    const usersQuerySnapshot = await usersColRef.get();
+    
+    if (!e.target.matches('.favorite-btn')) return;
+    
+    bookstoreQuerySnapshot.forEach(doc => {
+      if (id === doc.data().id) {
+        bookinfos = [...bookinfos, doc.data().name];
+        fireauth.onAuthStateChanged((user: any) =>{
+          usersQuerySnapshot.forEach((doc: any) => {
+            if (doc.data().userEmail === user.email) {
+              usersColRef.doc(doc.id).update({
+                favorites: bookinfos
+              })
+            }
+          })
+        });
+      }
+    })
+  })
 
 };
 
