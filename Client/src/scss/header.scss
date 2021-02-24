@@ -1,10 +1,19 @@
 .header {
-  background-color: yellow;
   padding: 0px;
   display: flex;
   justify-content: flex-end;
+  font-size: $medium-font;
   .login-btn {
-    justify-content: center;
-    align-content: center;
+    @include button;
+    color: $font-color;
+    background-color: transparent;
+    transition: 0.5s;
+    margin-top: 10px;
+    &:hover {
+      color: rgb(2, 2, 2);
+    }s
+    .login-btn-txt {
+      margin-left: 5px;
+    }
   }
 }

@@ -1,14 +1,8 @@
-import bookstoreRender from './bookstoreCarousel';
 import imageHandler from "./imageHandler";
 import mapHandler from "./mapHandler";
-import './firebaseSetting'
-import './auth'
-import { loginLogoLoader, login } from './login'
-import fireStore from './db';
+import './firebaseSetting';
+import login from './login';
 
-// bookstoreRender();
 imageHandler();
-
 login();
 mapHandler();
-fireStore();

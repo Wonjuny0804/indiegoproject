@@ -29,21 +29,10 @@ module.exports = {
         loader: 'file-loader',
         options: {
           name: 'img/[name].[ext]',
-          outputPath: 'assets/'
-          // publicPath: 'assets/'
+          outputPath: 'assets/',
+          publicPath: 'assets/'
         }
       },
-      // {
-      //   test: /\.(png|jpg|gif|svg)$/i,
-      //   use: [
-      //     {
-      //       loader: 'url-loader',
-      //       options: {
-      //         limit: 8192
-      //       }
-      //     }
-      //   ]
-      // },
       {
         test: /\.svg$/i,
         use: [
