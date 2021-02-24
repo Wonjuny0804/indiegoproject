@@ -41,9 +41,12 @@ const signup = () => {
       const newUser = await fireauth.createUserWithEmailAndPassword($signupForm['signupEmail'].value, $signupForm['signupPwConfirm'].value)
       console.log(newUser);
 
+      initialize($signupInputs);
+      closePopup($signup);
     }
     catch (error) {
       window.alert(error);
+      initialize($signupInputs);
     }
   }
 
@@ -88,7 +91,7 @@ const signup = () => {
   $main.addEventListener('click', load);
   $signupbg.addEventListener('click', closeSignup);
   $signupForm.addEventListener('submit', createNewUser);
-  $signupForm.addEventListener('keyup', _.throttle(validationCheck, 1000));
+  $signupForm.addEventListener('keyup', _.throttle(validationCheck));
 }
 
 export default signup;
