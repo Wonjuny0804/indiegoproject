@@ -17,7 +17,7 @@ interface Branch {
   openhour: string;
   introduction: string;
   website: string;
-  instgram: string;
+  instagram: string;
   img: string;
   content: string;
   lat: number;
@@ -302,8 +302,10 @@ const createListNav = (mode: string) => {
   $storeByRegionTab.innerHTML = storeByRegion
     .map(
       ($menu: any, i: number) =>
-        `<div><input type="radio" name="location" id="${$menu}${++i}" class="display-list-btn">
-        <label for="${$menu}${i}">${$menu}</label></div>
+        `<div>
+        <input type="radio" name="location" id="${$menu}${++i}" class="display-list-btn">
+        <label for="${$menu}${i}">${$menu}</label>
+        </div>
         `
     )
     .join('');
@@ -326,7 +328,6 @@ const displayListCarousel = (mode: string, map: any) => {
 
   $storeByRegionTab.addEventListener('change', (e: Event) => {
     const target = e.target as HTMLElement;
-    console.log(target);
     if (!target.classList.contains('display-list-btn')) return;
     const matchingStore = stores.filter(
       (store: Branch) => store.region === target.nextElementSibling?.textContent
@@ -334,6 +335,7 @@ const displayListCarousel = (mode: string, map: any) => {
 
     $storeCarousel.innerHTML = matchingStore
       .map((store: Branch) => {
+        console.log(store.website);
         return `
         <div class="slide" id=${store.id}> 
           <img src="${store.img}" alt="${store.name}">
@@ -341,7 +343,10 @@ const displayListCarousel = (mode: string, map: any) => {
             <h2>${store.name}</h2>
             <p>${store.introduction}</p>
           </div>
-          <div class="overlay"></div> 
+          <div class="overlay">
+            <a href="${store.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="${store.website}" target="_blank"><i class="fas fa-home"></i></a>
+          </div> 
        </div>
         `;
       })
@@ -350,10 +355,10 @@ const displayListCarousel = (mode: string, map: any) => {
     $storeCarousel.style.display = 'flex';
     zoomToStore(Array.from($storeCarousel.children)[currentSlide].id, map, mode);
     });
-
+    console.log($storeCarousel.nextElementSibling);
     $carouselContainer.addEventListener('click', (e: MouseEvent) => {
       const slides = Array.from($storeCarousel.children)
-      const target = e.target as HTMLButtonElement;
+      const target = e.target as HTMLElement;
       
       if (target.classList.contains('prev')) {
         if (currentSlide <= 0) {
