@@ -18,6 +18,10 @@
   </head>
   <body>
     <header class="header">
+      <button class="favorite-btn" type="button">
+        <i class="fab fa-gratipay"></i>
+        <span class="favorite-btn-txt">FAVORITE</span>
+      </button>
       <button class="login-btn" type="button">
         <i class="fas fa-unlock-alt"></i>
         <span class="login-btn-txt">LOGIN</span>
@@ -65,11 +69,21 @@
               <label for="signupName">이름</label>
               <input id="signupName" class="signup-name" autocomplete="off" />
               <label for="signupEmail">이메일</label>
-              <input id="signupEmail" class="signup-email" autocomplete="off"/>
+              <input id="signupEmail" class="signup-email" autocomplete="off" />
               <label for="signupPw">비밀번호</label>
-              <input type="password" id="signupPw" class="signup-pw" autocomplete="off"/>
+              <input
+                type="password"
+                id="signupPw"
+                class="signup-pw"
+                autocomplete="off"
+              />
               <label for="signupPwConfirm">비밀번호 확인</label>
-              <input type="password" id="signupPwConfirm" class="signup-pw-confirm" autocomplete="off"/>
+              <input
+                type="password"
+                id="signupPwConfirm"
+                class="signup-pw-confirm"
+                autocomplete="off"
+              />
               <button class="signup-submit" disabled>submit</button>
             </form>
           </section>
@@ -84,8 +98,7 @@
         </div>
         <div class="bookstore-info is-active">
           <div class="closest-store">
-            <div class="loc-loader">
-            </div>
+            <div class="loc-loader"></div>
             <span class="info">가까운 지점 찾기</span>
             <ol class="closest-store-list"></ol>
           </div>
@@ -102,12 +115,10 @@
             <button class="carousel-control prev">&laquo;</button>
             <button class="carousel-control next">&raquo;</button>
           </div>
-
         </div>
         <div class="theatre-info">
           <div class="closest-store">
-            <div class="loc-loader">
-            </div>
+            <div class="loc-loader"></div>
             <span class="info">가까운 지점 찾기</span>
             <ol class="closest-store-list"></ol>
           </div>
