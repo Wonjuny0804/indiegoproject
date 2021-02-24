@@ -62,7 +62,7 @@
       position: absolute;
       margin-top: 5px;
       left: 10px;
-      font-size: .5rem;
+      font-size: 1rem;
       transition: font-size 1s;
     }
 
@@ -90,31 +90,40 @@
       height: auto;
       display: flex;
       justify-content: center;
-    }
-    button {
-      font-family: 'roboto';
-      height: 5vh;
-      width: 30%;
-      margin: 20px 30px;
-      display: inline-block;
-      text-align: center;
-      background-color: transparent;
-      border-radius: 1px;
-      border: 1px solid $font-color;
-      outline: none;
-      text-transform: uppercase;
-      cursor: pointer;
-      
-      &:hover {
-        background-color: $font-color;
-        color: $base-color;
-      }
 
-      &[disabled] {
-        background-color: $font-color;
-        color: $base-color;
-        cursor: not-allowed;
+      button {
+        font-family: 'roboto';
+        font-size: 1.4rem;
+        height: 5vh;
+        width: 30%;
+        margin: 20px 30px;
+        display: inline-block;
+        text-align: center;
+        background-color: transparent;
+        border-radius: 1px;
+        border: 1px solid $font-color;
+        outline: none;
+        text-transform: uppercase;
+        cursor: pointer;
+        
+        &:hover {
+          background-color: $font-color;
+          color: $base-color;
+        }
+  
+        &[disabled] {
+          background-color: $font-color;
+          color: $base-color;
+          cursor: not-allowed;
+        }
       }
+    }
+
+    .close-btn {
+      position: absolute;
+      right: 30px;
+      top: 30px;
+      cursor: pointer;
     }
 
   }
@@ -141,6 +150,12 @@
 
       .login-image {
         width: 30%;
+      }
+
+      .close-btn {
+        position: absolute;
+        right: 80px;
+        top: 80px;
       }
     }
   }

@@ -1,7 +1,7 @@
 import { fireauth } from './firebaseSetting';
 import loginLogo from '../assets/login.svg';
 import loginImage from '../assets/login-image.svg';
-// import closeBtn from '../assets/close-btn.svg';
+import closeBtn from '../assets/close-btn.svg';
 import _ from 'lodash';
 
 const login = () => {
@@ -12,7 +12,8 @@ const login = () => {
   const $loginbg = document.querySelector('.login-popup-bg') as HTMLDivElement;
   const $loginLogo = document.querySelector('.login-logo') as HTMLImageElement;
   const $loginImage = document.querySelector('.login-image') as HTMLImageElement;
-  // const $closeBtn = document.querySelector('');
+  const $closeBtn = document.querySelector('.close-btn') as HTMLSpanElement;
+  const $closeBtnImg = $closeBtn.firstElementChild as HTMLImageElement;
   const $email = document.querySelector('form > #loginEmail') as HTMLInputElement;
   const $password = document.querySelector('form > #loginPwd') as HTMLInputElement;
   const $signin = document.querySelector('.sign-in') as HTMLButtonElement;
@@ -26,12 +27,13 @@ const login = () => {
   const showPopUp = (): void => {
     $loginLogo.src = loginLogo;
     $loginImage.src = loginImage;
+    $closeBtnImg.src = closeBtn;
 
     $login.classList.toggle('is-active'); 
   }
 
   const closePopUp = (e: Event): void => {
-    if (e.target !== $loginbg) return;
+    if (e.target !== $loginbg && e.target !== $closeBtnImg) return;
 
     initialize();
   }
@@ -73,6 +75,7 @@ const login = () => {
         $signin.disabled = false;
       }
   }
+
 
 
   $email.addEventListener('keyup', _.throttle(validationCheck, 1000));
