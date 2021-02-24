@@ -18,6 +18,10 @@
   </head>
   <body>
     <header class="header">
+      <button class="favorite-btn" type="button">
+        <i class="fab fa-gratipay"></i>
+        <span class="favorite-btn-txt">FAVORITE</span>
+      </button>
       <button class="login-btn" type="button">
         <i class="fas fa-unlock-alt"></i>
         <span class="login-btn-txt">LOGIN</span>
@@ -27,7 +31,6 @@
         <span class="logout-btn-txt">LOGOUT</span>
       </button>
     </header>
-
     <main class="main">
       <div class="landing"></div>
       <section class="login">
@@ -53,26 +56,38 @@
           </section>
         </div>
       </section>
-      <section class="registration">
-        <h1 class="registration-heading">
-          <i class="fas fa-user-plus"></i>
-          <span class="registration-txt">MEMBER REGISTRATION</span>
-        </h1>
-        <form class="registration-form">
-          <label for="regiEmail">이메일</label>
-          <input type="email" id="regiEmail" class="registration-email" />
-          <label for="regiName">이름</label>
-          <input type="text" id="regiName" class="registration-name" />
-          <label for="regiPw">비밀번호</label>
-          <input type="password" id="regiPw" class="registration-pw" />
-          <label for="regiPwConfirm">비밀번호 확인</label>
-          <input
-            type="password"
-            id="regiPwConfirm"
-            class="registration-pw-confirm"
-          />
-          <button class="register-confirm-btn">확인</button>
-        </form>
+      <section class="signup">
+        <div class="signup-popup-bg">
+          <section class="signup-popup-container">
+            <h1 class="signup-heading a11y-hidden">
+              <i class="fas fa-user-plus"></i>
+              <span class="signup-txt">member sign up</span>
+            </h1>
+            <img src="" alt="signup logo" class="signup-logo" />
+            <img src="" alt="signup image" class="signup-image" />
+            <form class="signup-form">
+              <label for="signupName">이름</label>
+              <input id="signupName" class="signup-name" autocomplete="off" />
+              <label for="signupEmail">이메일</label>
+              <input id="signupEmail" class="signup-email" autocomplete="off" />
+              <label for="signupPw">비밀번호</label>
+              <input
+                type="password"
+                id="signupPw"
+                class="signup-pw"
+                autocomplete="off"
+              />
+              <label for="signupPwConfirm">비밀번호 확인</label>
+              <input
+                type="password"
+                id="signupPwConfirm"
+                class="signup-pw-confirm"
+                autocomplete="off"
+              />
+              <button class="signup-submit" disabled>submit</button>
+            </form>
+          </section>
+        </div>
       </section>
       <section class="menu">
         <div class="menu-btns">
@@ -83,8 +98,7 @@
         </div>
         <div class="bookstore-info is-active">
           <div class="closest-store">
-            <div class="loc-loader">
-            </div>
+            <div class="loc-loader"></div>
             <span class="info">가까운 지점 찾기</span>
             <ol class="closest-store-list"></ol>
           </div>
@@ -101,12 +115,10 @@
             <button class="carousel-control prev">&laquo;</button>
             <button class="carousel-control next">&raquo;</button>
           </div>
-
         </div>
         <div class="theatre-info">
           <div class="closest-store">
-            <div class="loc-loader">
-            </div>
+            <div class="loc-loader"></div>
             <span class="info">가까운 지점 찾기</span>
             <ol class="closest-store-list"></ol>
           </div>

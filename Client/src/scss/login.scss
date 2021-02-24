@@ -17,7 +17,6 @@
         justify-content: center;
         align-items: center;
         z-index: 999;
-        // display: none;
   }
 
   .login-popup-container {
@@ -26,43 +25,37 @@
     justify-content: center;
     align-items: center;
     background-color: $popup-color;
-    width: 80vw;
-    height: 80vh;
+    width: 80%;
+    height: 85%;
     padding: 30px;
     box-sizing: border-box;
     position: relative;
     border-radius: 1px;
 
     .login-logo {
-      width: 10vh;
+      width: 25%;
       position: absolute;
-      left: 30px;
-      top: 30px;
+      left: 50px;
+      top: 50px;
     }
 
     .login-image {
       margin-top: 60px;
-      width: 25vw;
+      width: 50%;
       border-radius: 1px;
     }
    
     form {
       margin-top: 30px;
-      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
     }
 
     label {
-      position: absolute;
-      left: 10px;
-      margin-top: 10px;
-      font-size: 3rem;
-    }
-    // temp label
-    label {
-      position: absolute;
       margin-top: 5px;
-      left: 10px;
-      font-size: 1rem;
+      font-size: 2rem;
       transition: font-size 1s;
     }
 
@@ -73,29 +66,31 @@
       border-style: none;
       border-bottom: 1px solid $font-color;
       width: 100%;
-      height: 5vh;
-      font-size: 1.6rem;
+      height: 8vh;
+      font-size: 2rem;
       font-family: 'roboto';
       font-weight: 500;
       text-align: center;
       color: black;
       outline: none;
 
-      &.not-valid {
-        border-color: red;
-      }
+    }
+    .not-valid {
+      border-color: red;
+      color: red;
     }
 
     .btn-wrapper {
       height: auto;
       display: flex;
       justify-content: center;
+      margin-top: 50px;
 
       button {
         font-family: 'roboto';
-        font-size: 1.4rem;
-        height: 5vh;
-        width: 30%;
+        font-size: 2rem;
+        height: 8vh;
+        width: 30vw;
         margin: 20px 30px;
         display: inline-block;
         text-align: center;
@@ -152,6 +147,13 @@
         width: 30%;
       }
 
+      input {
+        width: 80%;
+      }
+
+      button {
+        width: 10vw;
+      }
       .close-btn {
         position: absolute;
         right: 80px;
