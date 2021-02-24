@@ -1,101 +1,83 @@
 import firebase from 'firebase/app';
 import loginLogo from '../assets/login.svg';
 import loginImage from '../assets/login-image.svg';
-
-// DOM element
-
-
-const loginLogoLoader = () => {
-  
-};
+// import closeBtn from '../assets/close-btn.svg';
+import _ from 'lodash';
 
 const login = () => {
-  // get Elements
-  const $loginBtn = document.querySelector('.login-btn') as HTMLButtonElement; 
+  // get DOM Elements
   const $login = document.querySelector('.login') as HTMLElement;
+  const $loginBtn = document.querySelector('.login-btn') as HTMLButtonElement; 
+  const $loginForm = document.querySelector('.login-form-container > form') as HTMLFormElement;
+  const $loginbg = document.querySelector('.login-popup-bg') as HTMLDivElement;
+  const $loginLogo = document.querySelector('.login-logo') as HTMLImageElement;
+  const $loginImage = document.querySelector('.login-image') as HTMLImageElement;
+  // const $closeBtn = document.querySelector('');
+  const $email = document.querySelector('form > #loginEmail') as HTMLInputElement;
+  const $password = document.querySelector('form > #loginPwd') as HTMLInputElement;
 
-  const showPopUp = () => {
-    const $login = document.querySelector('.login') as HTMLElement;
-    const $loginLogo = document.querySelector('.login-logo') as HTMLImageElement;
-    const $loginImage = document.querySelector('.login-image') as HTMLImageElement;
+  const deactivate = () => {
+    $login.classList.toggle('is-active');
+    $email.value = '';
+    $password.value = '';
+  }
 
+  const showPopUp = (): void => {
     $loginLogo.src = loginLogo;
     $loginImage.src = loginImage;
 
-    $login.classList.toggle('is-active');
+    $login.classList.toggle('is-active'); 
   }
 
-  const closePopUp = (clickEvent: MouseEvent): void => {
-    const $bgContainer = document.querySelector('.login-popup-container') as HTMLElement;
-    // if (clickEvent.target.classList.contains('login-popup-bg')) $login.classList.toggle('is-active');
+  const closePopUp = (e: Event): void => {
+    if (e.target !== $loginbg) return;
+
+    deactivate();
   }
-  
-  
-  // const generatePopup = () =>{
-  //   const $loginSection = document.querySelector('.login') as HTMLElement;
-  //   // initialize
-  //   $loginSection.innerHTML = '';
-  //   // Generate DOM elements
-  //   const $loginPopUpBg = document.createElement('div');
 
-  //   const $loginPopUpContainer = document.createElement('section');
-  //   const $loginFormContainer = document.createElement('div');
-  //   const $loginImage = new Image();
-  //   const $loginLogo = new Image();
+  const signIn = async (e: Event) => {
+    e.preventDefault();
 
-  //   const $loginForm = document.createElement('form'); 
+    try {
+      const user = await firebase.auth().signInWithEmailAndPassword($email.value, $password.value);
+      
+      deactivate();
+    } 
+    catch (error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      window.alert(error);
+    }
+  }
 
-  //   const $loginEmailInput = document.createElement('input');
-  //   const $loginPwdInput = document.createElement('input');
-  //   const $emailLabel = document.createElement('label');
-  //   const $passwordLabel = document.createElement('label');
-  //   const $loginBtn = document.createElement('input');
-  //   const $signupBtn = document.createElement('button');
+  // label placeholder part
+  const labelTransition = (): void => {
+    console.log('gogo');
+  }
 
-  //   $loginPopUpBg.classList.add('login-popup-bg');
-  //   $loginPopUpContainer.classList.add('login-popup-container');
-  //   $loginFormContainer.classList.add('login-form-container');
+  const validationCheck = (e: KeyboardEvent): void => {
+    const $inputTarget = e.target as HTMLInputElement;
+    const $labelInput = $inputTarget.previousElementSibling as HTMLLabelElement;
+    let regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/ as RegExp;
+    
+    if ($inputTarget.id === 'loginPwd') regExp = /$/ as RegExp;
 
-  //   $loginImage.src = loginImage;
-  //   $loginLogo.src = loginLogo;
+    if (!regExp.test($inputTarget.value) || $inputTarget.value === '') {
+      $labelInput.style.color = 'red'; 
+      $inputTarget.classList.add('not-valid');
+      } else {
+        console.log(typeof $inputTarget.value);
+        $inputTarget.classList.remove('not-valid');
+        $labelInput.style.color = '';
+      }
+  }
 
-  //   $loginImage.alt = 'login image';
-  //   $loginLogo.alt = 'login logo';
-
-  //   $emailLabel.htmlFor = 'loginEmail';
-  //   $passwordLabel.htmlFor = 'loginPwd';
-
-  //   $loginEmailInput.type= 'email';
-  //   $loginEmailInput.id = 'loginEmail';
-  //   $loginEmailInput.required = true;
-
-  //   $loginPwdInput.type = 'password';
-  //   $loginPwdInput.id = 'loginPwd';
-  //   $loginPwdInput.required = true;
-
-  //   $loginBtn.type = 'submit';
-  //   $loginBtn.value = 'login';
-
-  //   $loginForm.append($emailLabel, $loginEmailInput, $passwordLabel, $loginPwdInput, $loginBtn, $signupBtn);
-  //   $loginFormContainer.appendChild($loginForm);
-  //   $loginPopUpContainer.append($loginLogo, $loginImage, $loginFormContainer);
-  //   $loginPopUpBg.appendChild($loginPopUpContainer);
-  //   $loginSection.appendChild($loginPopUpBg);
-  // }
-
-
+  $email.addEventListener('keyup', _.throttle(validationCheck, 1000));
+  $password.addEventListener('keyup', _.throttle(validationCheck, 1000));
+  $email.addEventListener('focus', labelTransition);
+  $loginForm.addEventListener('submit', signIn);
   $loginBtn.addEventListener('click', showPopUp);
-  $login.addEventListener('click', closePopUp);
+  $loginbg.addEventListener('click', closePopUp);
 }
 
-// firebase.auth().signInWithEmailAndPassword(email, password)
-//   .then((user) => {
-//     // Signed in
-//     // ...
-//   })
-//   .catch((error) => {
-//     var errorCode = error.code;
-//     var errorMessage = error.message;
-//   });
-
-export { loginLogoLoader, login };
+export default login;

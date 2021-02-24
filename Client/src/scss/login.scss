@@ -1,5 +1,9 @@
-.login.is-active {
-  display: inline-block;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
+.login {
+  display: none;
+  font-family: 'roboto';
+
   .login-popup-bg {
         background-color: rgba(0, 0, 0, 0.5);
         margin: 0;
@@ -12,8 +16,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        z-index: 999;
         // display: none;
   }
+
   .login-popup-container {
     display: flex;
     flex-direction: column;
@@ -25,6 +31,7 @@
     padding: 30px;
     box-sizing: border-box;
     position: relative;
+    border-radius: 1px;
 
     .login-logo {
       width: 10vh;
@@ -34,15 +41,97 @@
     }
 
     .login-image {
-      width: 60vw;
+      margin-top: 60px;
+      width: 25vw;
+      border-radius: 1px;
+    }
+   
+    form {
+      margin-top: 30px;
+      position: relative;
+    }
+
+    label {
+      position: absolute;
+      left: 10px;
+      margin-top: 10px;
+      font-size: 3rem;
+    }
+    // temp label
+    label {
+      position: absolute;
+      margin-top: 5px;
+      left: 10px;
+      font-size: .5rem;
+      transition: font-size 1s;
     }
 
     input {
+      padding: 0;
+      margin: 5px;
       background-color: transparent;
       border-style: none;
-      border-bottom: 1px solid black;
+      border-bottom: 1px solid $font-color;
       width: 100%;
-      height: 8vh;
+      height: 5vh;
+      font-size: 1.6rem;
+      outline: none;
+
+      &.not-valid {
+        border-color: red;
+
+      }
     }
+
+    .btn-wrapper {
+      height: auto;
+      display: flex;
+      justify-content: center;
+    }
+    button {
+      font-family: 'roboto';
+      height: 5vh;
+      width: 30%;
+      margin: 20px 30px;
+      display: inline-block;
+      text-align: center;
+      background-color: transparent;
+      border-radius: 1px;
+      border: 1px solid $font-color;
+      outline: none;
+      text-transform: uppercase;
+      
+      &:hover {
+        background-color: $font-color;
+        color: $base-color;
+      }
+    }
+
   }
 }
+
+.is-active {
+  display: block;
+}
+
+
+
+
+@include desktop {
+  .login {
+    font-family: 'roboto';
+    .login-popup-container {
+
+      .login-logo {
+        width: 10vh;
+        position: absolute;
+        left: 80px;
+        top: 80px;
+      }
+
+      .login-image {
+        width: 25%;
+      }
+    }
+  }
+} 
