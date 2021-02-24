@@ -1,7 +1,7 @@
 import imageHandler from "./imageHandler";
 import mapHandler from "./mapHandler";
-import './auth'
-import { loginLogoLoader, login } from './login'
+import './firebaseSetting';
+import login from './login';
 
 imageHandler();
 login();

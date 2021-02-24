@@ -29,18 +29,23 @@
       <section class="login">
         <div class="login-popup-bg">
           <section class="login-popup-container">
-            <img src="" alt="" class="login-logo" />
-            <img src="" alt="" class="login-image" />
+            <img src="" alt="login logo" class="login-logo" />
+            <img src="" alt="login image" class="login-image" />
             <div class="login-form-container">
               <form>
                 <label for="loginEmail">Email</label>
-                <input type="email" id="loginEmail" required />
-                <label for="loginPwd"></label>
-                <input type="password" id="loginPwd" required />
-                <button class="sign-in">sign in</button>
-                <button class="sign-up">sign up</button>
+                <input id="loginEmail" autocomplete="off">
+                <label for="loginPwd">Password</label>
+                <input id="loginPwd" type="password" autocomplete="off">
+                <div class="btn-wrapper">
+                  <button class="sign-up" type="button">sign up</button>
+                  <button class="sign-in" disabled>sign in</button>
+                </div>
               </form>
             </div>
+            <span class="close-btn">
+              <img src="" alt="close button">
+            </span>
           </section>
         </div>
       </section>
