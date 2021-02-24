@@ -282,8 +282,10 @@ const createListNav = (mode: string) => {
 
   $storeByRegionTab.innerHTML = storeByRegion
     .map(
-      ($menu: any) =>
-        `<li class="display-list-btn">${$menu}</li>`
+      ($menu: any, i: number) =>
+        `<div><input type="radio" name="location" id="${++i}" class="display-list-btn">
+        <label for="${i}">${$menu}</label></div>
+        `
     )
     .join('');
 };
@@ -302,25 +304,23 @@ const displayListCarousel = (mode: string, map: any) => {
   ? document.querySelector('.bookstore-info .bookstore-carousel-slides') as HTMLElement
   : document.querySelector('.theatre-info .theatre-carousel-slides') as HTMLElement);
 
-
-  $storeByRegionTab.addEventListener('click', (e: MouseEvent) => {
+  $storeByRegionTab.addEventListener('change', (e: Event) => {
     currentSlide = 0;
     const target = e.target as HTMLElement;
-
     if (!target.classList.contains('display-list-btn')) return;
     const matchingStore = stores.filter(
-      (store: Branch) => store.region === target.textContent
+      (store: Branch) => store.region === target.nextElementSibling?.textContent
     );
-
+    
     $storeCarousel.innerHTML = matchingStore
       .map((store: Branch) => {
         return `<img id=${store.id} src="${store.img}" alt="${store.name}">`;
       })
       .join('');
-
-      $storeCarousel.style.setProperty('--currentSlide', '0');
-      $storeCarousel.style.display = 'flex';
-      zoomToStore(Array.from($storeCarousel.children)[currentSlide].id, map);
+    console.log($storeCarousel.children);
+    $storeCarousel.style.setProperty('--currentSlide', '0');
+    $storeCarousel.style.display = 'flex';
+    zoomToStore(Array.from($storeCarousel.children)[currentSlide].id, map);
     });
 
     $carouselContainer.addEventListener('click', (e: MouseEvent) => {
@@ -332,6 +332,7 @@ const displayListCarousel = (mode: string, map: any) => {
         }
         else {
           $storeCarousel.style.setProperty('--currentSlide', --currentSlide + '');
+          $storeCarousel.style.setProperty('--duration', 500 + '');
           zoomToStore(slides[currentSlide].id, map);
           console.log(currentSlide);
         }
@@ -342,6 +343,7 @@ const displayListCarousel = (mode: string, map: any) => {
         }
         else {
           $storeCarousel.style.setProperty('--currentSlide', ++currentSlide + '');
+          $storeCarousel.style.setProperty('--duration', 500 + '');
           zoomToStore(slides[currentSlide].id, map);
           console.log(currentSlide);
         }
