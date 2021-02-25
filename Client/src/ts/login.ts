@@ -4,7 +4,7 @@ import loginLogo from '../assets/login.svg';
 import loginImage from '../assets/login-image.svg';
 import closeBtn from '../assets/close-btn.svg';
 import _ from 'lodash';
-import { initialize, openPopup, closePopup } from './utils';
+import { initialize, openPopup, closePopup, placeholder } from './utils';
 
 const login = () => {
   // get DOM Elements
@@ -17,9 +17,9 @@ const login = () => {
   const $loginImage = document.querySelector('.login-image') as HTMLImageElement;
   const $closeBtn = document.querySelector('.close-btn') as HTMLSpanElement;
   const $closeBtnImg = $closeBtn.firstElementChild as HTMLImageElement;
-  const $email = document.querySelector('form > #loginEmail') as HTMLInputElement;
+  const $email = document.querySelector('form #loginEmail') as HTMLInputElement;
   const $loginInputs = document.querySelectorAll('form input') as NodeList;
-  const $password = document.querySelector('form > #loginPwd') as HTMLInputElement;
+  const $password = document.querySelector('form #loginPwd') as HTMLInputElement;
   const $signin = document.querySelector('.sign-in') as HTMLButtonElement;
   const $favBtn = document.querySelector('.check-favorite-btn') as HTMLButtonElement;
 
@@ -66,11 +66,6 @@ const login = () => {
     }
   }
 
-  // label placeholder part
-  const labelTransition = (): void => {
-    console.log('gogo');
-  }
-
   const validationCheck = (e: KeyboardEvent): void => {
     const $inputTarget = e.target as HTMLInputElement;
     const $labelInput = $inputTarget.previousElementSibling as HTMLLabelElement;
@@ -99,12 +94,19 @@ const login = () => {
     }
   };
 
+  const labelTransition = (e: FocusEvent) => {
+    const $inputElement = e.target as HTMLInputElement;
+    if ($inputElement.value !== '') return;
+    placeholder($inputElement);
+  }
 
 
 
+  // $email.addEventListener('focu')
   $email.addEventListener('keyup', _.throttle(validationCheck, 1000));
   $password.addEventListener('keyup', _.throttle(validationCheck, 1000));
-  $email.addEventListener('focus', labelTransition);
+  $loginbg.addEventListener('focusin', labelTransition);
+  $loginbg.addEventListener('focusout', labelTransition);
   $loginForm.addEventListener('submit', signIn);
   $loginBtn.addEventListener('click', loader);
   $loginbg.addEventListener('click', closePopUp);

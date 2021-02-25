@@ -26,7 +26,7 @@
         <ul class="favorite-list"></ul>
       </div>
       <button class="login-btn" type="button">
-        <i class="fas fa-unlock-alt"></i>
+        <i class="fas fa-user"></i>
         <span class="login-btn-txt">LOGIN</span>
       </button>
       <button class="logout-btn" type="button">
@@ -43,10 +43,14 @@
             <img src="" alt="login image" class="login-image" />
             <div class="login-form-container">
               <form>
-                <label for="loginEmail">Email</label>
-                <input id="loginEmail" autocomplete="off" />
-                <label for="loginPwd">Password</label>
-                <input id="loginPwd" type="password" autocomplete="off" />
+                <div class="input-wrapper">
+                  <label for="loginEmail">Email</label>
+                  <input id="loginEmail" autocomplete="off" />
+                </div>
+                <div class="input-wrapper">
+                  <label for="loginPwd">Password</label>
+                  <input id="loginPwd" type="password" autocomplete="off" />
+                </div>
                 <div class="btn-wrapper">
                   <button class="sign-up" type="button">sign up</button>
                   <button class="sign-in" disabled>sign in</button>
@@ -69,24 +73,32 @@
             <img src="" alt="signup logo" class="signup-logo" />
             <img src="" alt="signup image" class="signup-image" />
             <form class="signup-form">
-              <label for="signupName">이름</label>
-              <input id="signupName" class="signup-name" autocomplete="off" />
-              <label for="signupEmail">이메일</label>
-              <input id="signupEmail" class="signup-email" autocomplete="off" />
-              <label for="signupPw">비밀번호</label>
-              <input
-                type="password"
-                id="signupPw"
-                class="signup-pw"
-                autocomplete="off"
-              />
-              <label for="signupPwConfirm">비밀번호 확인</label>
-              <input
-                type="password"
-                id="signupPwConfirm"
-                class="signup-pw-confirm"
-                autocomplete="off"
-              />
+              <div class="input-wrapper">
+                <label for="signupName">이름</label>
+                <input id="signupName" class="signup-name" autocomplete="off" />
+              </div>
+              <div class="input-wrapper">
+                <label for="signupEmail">이메일</label>
+                <input id="signupEmail" class="signup-email" autocomplete="off" />
+              </div>
+              <div class="input-wrapper">
+                <label for="signupPw">비밀번호</label>
+                <input
+                  type="password"
+                  id="signupPw"
+                  class="signup-pw"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="input-wrapper">
+                <label for="signupPwConfirm">비밀번호 확인</label>
+                <input
+                  type="password"
+                  id="signupPwConfirm"
+                  class="signup-pw-confirm"
+                  autocomplete="off"
+                />
+              </div>
               <button class="signup-submit" disabled>submit</button>
             </form>
           </section>
@@ -95,9 +107,11 @@
       <section class="menu">
         <div class="menu-btns">
           <button class="bookstore-info-btn">
-            <i class="fas fa-book"></i>
+            Bookstores
           </button>
-          <button class="theatre-info-btn"><i class="fas fa-video"></i></button>
+          <button class="theatre-info-btn">
+            Theatres
+          </button>
         </div>
         <div class="bookstore-info is-active">
           <div class="closest-store">
@@ -143,10 +157,41 @@
     <footer class="footer">
       <div class="footer-content">
         <h1 class="footer-heading">ABOUT <em>INDIE•GO</em></h1>
+        <p class="indiego-info">The indiego project was directed in order to support the minor art community. 
+          By providing minor art industry store locations and information public could draw more attention to them. 
+          Minor art industry such as independent films, publication, art, design. What kind of art it maybe all art has its own beauty.
+        </p>
         <ul class="member-intro">
-          <li><a href="https://github.com/Wonjuny0804">장원준</a></li>
-          <li><a href="https://github.com/minki607">서민기</a></li>
-          <li><a href="https://github.com/bcround">신봉철</a></li>
+          <li>
+            <a href="https://github.com/Wonjuny0804">
+            <div class="image-container">
+              <img src="" alt="장원준 깃허브 사진">
+            </div>
+            <span>
+              장원준
+            </span>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/minki607">
+              <div class="image-container">
+                <img src="" alt="서민기 깃허브 사진">
+              </div>
+              <span>
+                서민기
+              </span>
+          </a>
+          </li>
+          <li>
+            <a href="https://github.com/bcround">
+              <div class="image-container">
+                <img src="" alt="신봉철 깃허브 사진">
+              </div>
+              <span>
+                신봉철
+              </span>
+            </a>
+          </li>
         </ul>
       </div>
     </footer>

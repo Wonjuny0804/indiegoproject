@@ -140,13 +140,16 @@ header {
 }
 
 .menu-btns {
+  user-select: none;
   display: flex;
   justify-content: space-around;
   align-items: center;
   margin-bottom: 30px;
   padding: 20px;
   & button {
-    font-size: 5rem;
+    font-family: 'roboto';
+    font-size: 2rem;
+    font-weight: 100;
     color: $font-color;
     border: none;
     background: transparent;
@@ -326,7 +329,7 @@ header {
     div {
       height: 49px;
       line-height: 49px;
-      border: 1px solid #a8a5a1;
+      border: 1px solid #d7d6d6;
       text-align: center;
       margin: 5px;
       label {

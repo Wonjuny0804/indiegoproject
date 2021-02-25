@@ -1,6 +1,6 @@
 import signuplogo from '../assets/signup.svg';
 import signupImage from '../assets/signup-image.svg';
-import { initialize, openPopup, closePopup } from './utils';
+import { initialize, openPopup, closePopup, placeholder } from './utils';
 import { fireauth } from './firebaseSetting'; 
 import _ from 'lodash';
 const signup = () => {
@@ -88,8 +88,16 @@ const signup = () => {
     }
   }
 
+  const labelTransition = (e: FocusEvent) => {
+    const $inputElement = e.target as HTMLInputElement;
+    if ($inputElement.value !== '') return;
+    placeholder($inputElement);
+  }
+  
   $main.addEventListener('click', load);
   $signupbg.addEventListener('click', closeSignup);
+  $signupbg.addEventListener('focusin', labelTransition);
+  $signupbg.addEventListener('focusout', labelTransition);
   $signupForm.addEventListener('submit', createNewUser);
   $signupForm.addEventListener('keyup', _.throttle(validationCheck));
 }
