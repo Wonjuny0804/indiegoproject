@@ -47,10 +47,14 @@
             <img src="" alt="login image" class="login-image" />
             <div class="login-form-container">
               <form>
-                <label for="loginEmail">Email</label>
-                <input id="loginEmail" autocomplete="off" />
-                <label for="loginPwd">Password</label>
-                <input id="loginPwd" type="password" autocomplete="off" />
+                <div class="input-wrapper">
+                  <label for="loginEmail">Email</label>
+                  <input id="loginEmail" autocomplete="off" />
+                </div>
+                <div class="input-wrapper">
+                  <label for="loginPwd">Password</label>
+                  <input id="loginPwd" type="password" autocomplete="off" />
+                </div>
                 <div class="btn-wrapper">
                   <button class="sign-up" type="button">sign up</button>
                   <button class="sign-in" disabled>sign in</button>
@@ -73,24 +77,32 @@
             <img src="" alt="signup logo" class="signup-logo" />
             <img src="" alt="signup image" class="signup-image" />
             <form class="signup-form">
-              <label for="signupName">이름</label>
-              <input id="signupName" class="signup-name" autocomplete="off" />
-              <label for="signupEmail">이메일</label>
-              <input id="signupEmail" class="signup-email" autocomplete="off" />
-              <label for="signupPw">비밀번호</label>
-              <input
-                type="password"
-                id="signupPw"
-                class="signup-pw"
-                autocomplete="off"
-              />
-              <label for="signupPwConfirm">비밀번호 확인</label>
-              <input
-                type="password"
-                id="signupPwConfirm"
-                class="signup-pw-confirm"
-                autocomplete="off"
-              />
+              <div class="input-wrapper">
+                <label for="signupName">이름</label>
+                <input id="signupName" class="signup-name" autocomplete="off" />
+              </div>
+              <div class="input-wrapper">
+                <label for="signupEmail">이메일</label>
+                <input id="signupEmail" class="signup-email" autocomplete="off" />
+              </div>
+              <div class="input-wrapper">
+                <label for="signupPw">비밀번호</label>
+                <input
+                  type="password"
+                  id="signupPw"
+                  class="signup-pw"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="input-wrapper">
+                <label for="signupPwConfirm">비밀번호 확인</label>
+                <input
+                  type="password"
+                  id="signupPwConfirm"
+                  class="signup-pw-confirm"
+                  autocomplete="off"
+                />
+              </div>
               <button class="signup-submit" disabled>submit</button>
             </form>
           </section>
