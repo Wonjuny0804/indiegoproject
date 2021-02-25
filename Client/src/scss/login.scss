@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
 
+
 .login {
   display: none;
   font-family: 'roboto';
@@ -35,18 +36,17 @@
     .login-logo {
       width: 25%;
       position: absolute;
-      left: 50px;
-      top: 50px;
+      left: 30px;
+      top: 30px;
     }
 
     .login-image {
-      margin-top: 60px;
+      margin-top: 100px;
       width: 50%;
       border-radius: 1px;
     }
-   
+    
     form {
-      margin-top: 30px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -54,6 +54,7 @@
     }
 
     label {
+      // position: absolute;
       margin-top: 5px;
       font-size: 2rem;
       transition: font-size 1s;
@@ -65,7 +66,7 @@
       background-color: transparent;
       border-style: none;
       border-bottom: 1px solid $font-color;
-      width: 100%;
+      width: 50vw;
       height: 8vh;
       font-size: 2rem;
       font-family: 'roboto';
@@ -84,33 +85,33 @@
       height: auto;
       display: flex;
       justify-content: center;
-      margin-top: 50px;
+      margin-top: 30px;
 
-      button {
-        font-family: 'roboto';
-        font-size: 2rem;
-        height: 8vh;
-        width: 30vw;
-        margin: 20px 30px;
-        display: inline-block;
-        text-align: center;
-        background-color: transparent;
-        border-radius: 1px;
-        border: 1px solid $font-color;
-        outline: none;
-        text-transform: uppercase;
-        cursor: pointer;
-        
-        &:hover {
-          background-color: $font-color;
-          color: $base-color;
-        }
-  
-        &[disabled] {
-          background-color: $font-color;
-          color: $base-color;
-          cursor: not-allowed;
-        }
+    }
+    button {
+      font-family: 'roboto';
+      font-size: 2rem;
+      height: 8vh;
+      width: 30vw;
+      margin: 10px;
+      display: inline-block;
+      text-align: center;
+      background-color: transparent;
+      border-radius: 1px;
+      border: 1px solid $font-color;
+      outline: none;
+      text-transform: uppercase;
+      cursor: pointer;
+      
+      &:hover {
+        background-color: $font-color;
+        color: $base-color;
+      }
+
+      &[disabled] {
+        background-color: $font-color;
+        color: $base-color;
+        cursor: not-allowed;
       }
     }
 
@@ -120,14 +121,14 @@
       top: 30px;
       cursor: pointer;
     }
-
   }
 }
+
+
 
 .is-active {
   display: block;
 }
-
 
 
 
@@ -148,11 +149,11 @@
       }
 
       input {
-        width: 80%;
+        width: 40vw;
       }
 
       button {
-        width: 10vw;
+        width: 18vw;
       }
       .close-btn {
         position: absolute;
