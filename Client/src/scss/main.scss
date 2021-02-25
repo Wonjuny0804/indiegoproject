@@ -18,7 +18,7 @@ header {
     font-size: $medium-font;
     display: none;
   }
-  .favorite-btn {
+  .check-favorite-btn {
     @include button;
     position: absolute;
     background: none;
@@ -184,8 +184,11 @@ header {
   }
 }
 .theatre-info {
-  background-image:
-    linear-gradient(to bottom, #F7F0E5, rgba(255, 255, 255, 0.934));
+  background-image: linear-gradient(
+    to bottom,
+    #f7f0e5,
+    rgba(255, 255, 255, 0.934)
+  );
   padding: 25px;
   display: none;
   position: relative;
@@ -208,7 +211,7 @@ header {
   position: relative;
   margin: 0 auto;
   overflow: hidden;
-    transform: translate(0, 0);
+  transform: translate(0, 0);
   width: 300px;
   .carousel-slides {
     display: none;
@@ -221,7 +224,6 @@ header {
       height: 200px;
     }
     .slide {
-    
       position: relative;
       .overlay {
         @include flexCenter;
@@ -236,7 +238,8 @@ header {
         .overlay {
           opacity: 1;
           background-color: rgba(255, 192, 203, 0.253);
-          svg, button {
+          svg,
+          button {
             border: none;
             cursor: pointer;
             color: $secondary-color;
@@ -260,8 +263,8 @@ header {
       height: 80px;
       padding: 20px;
       overflow: scroll;
-      -ms-overflow-style: none;  /* Internet Explorer 10+ */
-      scrollbar-width: none;  /* Firefox */
+      -ms-overflow-style: none; /* Internet Explorer 10+ */
+      scrollbar-width: none; /* Firefox */
       text-align: center;
       border-bottom: 20px solid #f6eee1;
       h2 {
@@ -272,7 +275,7 @@ header {
       }
       .address {
         font-size: 1rem;
-        color: #94674b
+        color: #94674b;
       }
       p {
         margin-top: 10px;
@@ -340,7 +343,7 @@ header {
         }
       }
       input[type='radio']:checked + label {
-        background-color: #e3ddd5
+        background-color: #e3ddd5;
       }
     }
     .display-list-btn {
