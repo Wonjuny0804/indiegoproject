@@ -1,20 +1,22 @@
+
 .header {
+  margin-top: 15px;
   padding: 0px;
   display: flex;
   justify-content: flex-end;
   font-size: $medium-font;
+  button {
+        font-size: $medium-font;
+    &:hover {
+      color: rgb(2, 2, 2);
+    }
+  }
   .login-btn {
     @include button;
     color: $font-color;
     background-color: transparent;
     transition: 0.5s;
     margin-top: 10px;
-    &:hover {
-      color: rgb(2, 2, 2);
-    }
-    s .login-btn-txt {
-      margin-left: 5px;
-    }
   }
   .favorite-popup {
     background: yellow;
@@ -25,5 +27,26 @@
     &.is-active {
       display: block;
     }
+  }
+  svg {
+    margin-right: 5px;
+    color: $font-color;
+  }
+}
+
+
+header {
+  .login-btn {
+    @include button;
+  }
+  .logout-btn {
+    @include button;
+    background: none;
+    display: none;
+  }
+  .favorite-btn {
+    @include button;
+    background: none;
+    display: none;
   }
 }
