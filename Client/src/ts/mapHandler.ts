@@ -204,10 +204,13 @@ const plotMap = async (mode: string, map: any) => {
     averageCenter: true,  
     minLevel: 12,
     styles: [{ 
-      width : '40px', height : '40px',
-      background: 'rgba(249, 241, 230, 0.75)',
+      width : '40px', 
+      height : '40px',
+      background: '#efc790cf',
       borderRadius: '15px',
-      color: '#8c6022',
+      color: '#191919',
+      border: '1px solid #a8a5a1',
+      'font-size': '1.3rem',
       textAlign: 'center',
       fontWeight: 'bold',
       lineHeight: '31px'
@@ -331,6 +334,8 @@ const displayListCarousel = (mode: string, map: any) => {
   : document.querySelector('.theatre-info .theatre-carousel-slides') as HTMLElement);
 
   $storeByRegionTab.addEventListener('change', (e: Event) => {
+    currentSlide = 0;
+    
     const target = e.target as HTMLElement;
     if (!target.classList.contains('display-list-btn')) return;
     const matchingStore = stores.filter(
@@ -345,13 +350,14 @@ const displayListCarousel = (mode: string, map: any) => {
           <img src="${store.img}" alt="${store.name}">
           <div class="info-panel">
             <h2>${store.name}</h2>
+            <span class="address"><i class="fas fa-map-marker-alt"></i> ${store.address}</span>
             <p>${store.introduction}</p>
           </div>
           <div class="overlay">
+            <button type="button" class="favorite-btn">❤︎</button>
             <a href="${store.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>
             <a href="${store.website}" target="_blank"><i class="fas fa-home"></i></a>
           </div> 
-          <button type="button" class="favorite-btn">❤︎</button>
        </div>
         `;
       })
@@ -360,7 +366,7 @@ const displayListCarousel = (mode: string, map: any) => {
     $storeCarousel.style.display = 'flex';
     zoomToStore(Array.from($storeCarousel.children)[currentSlide].id, map, mode);
     });
-    console.log($storeCarousel.nextElementSibling);
+    
     $carouselContainer.addEventListener('click', (e: MouseEvent) => {
       const slides = Array.from($storeCarousel.children)
       const target = e.target as HTMLElement;
