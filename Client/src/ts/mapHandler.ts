@@ -23,7 +23,6 @@ interface Branch {
   website: string;
   instagram: string;
   img: string;
-  content: string;
   lat: number;
   lng: number;
   distance: number;
@@ -245,15 +244,10 @@ const plotMap = async (mode: string, map: any) => {
           <div class="info">
             <div class="title">${store.name}</div> 
               <div class="body"> 
-                <div class="img">
-                  <img src=${store.img} width="73" height="70"> 
-                </div>  
                   <div class="desc">
-                    <div class="ellipsis">${store.address}</div>  
-                      <div class="jibun ellipsis">${store.openhour}, ${store.tel}</div> 
-                        <div>
-                          <a href="${store.website}" target="_blank" class="link">홈페이지</a>
-                        </div> 
+                    <address class="ellipsis">${store.address}</address>  
+                      <p class="openhour">${store.openhour}</p> 
+                      <a href="tel:+${store.tel}" class="tel">${store.tel}</a> 
                     </div>
               </div>
             </div>   
