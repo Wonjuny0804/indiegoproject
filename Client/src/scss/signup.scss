@@ -34,7 +34,7 @@
       top: 30px;
     }
     .signup-image {
-      margin-top: 60px;
+      margin-top: 80px;
       width: 37%;
       border-radius: 1px;
     }
@@ -51,17 +51,15 @@
       margin-top: 5px;
     }
     input {
-      padding: 0;
       margin: 5px;
       background-color: transparent;
       border-style: none;
       border-bottom: 1px solid $font-color;
       width: 90%;
-      height: 8vh;
-      font-size: 2rem;
+      height: 5vh;
       font-family: 'roboto';
       font-weight: 500;
-      text-align: center;
+      text-align: left;
       color: $font-color;
       outline: none;
 
@@ -123,6 +121,7 @@
       }
       input {
         width: 40vw;
+        font-size: 2rem;
       }
       button {
         margin: 30px;
