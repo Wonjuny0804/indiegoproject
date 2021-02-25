@@ -2,7 +2,7 @@
 
 html {
   font-size: 10px;  
-  font-family: 'Roboto';
+  font-family: 'roboto';  
   font-weight: 200;
 }
 
@@ -11,6 +11,9 @@ body{
 }
 
 @mixin button {
+  user-select: none;
+  font-weight: 100;
+  font-family: 'roboto';
   border: none;
 	padding: .5em 2em .55em;
 	outline: none;
