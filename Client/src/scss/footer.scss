@@ -2,6 +2,7 @@
   @include flexCenter;
   padding: 30px;
   background-color: $secondary-color;
+  font-family: 'roboto';
   color: $dark-base-color;  
   .footer-content {
     text-align: center;
@@ -9,9 +10,14 @@
     .footer-heading {
       font-weight: bold;
       margin-bottom: 15px;
+      letter-spacing: 2px;
     }
     em {
       display: block;
+    }
+    .indiego-info {
+      width: 80vw;
+      text-align: justify;
     }
     .member-intro {
       font-size: $medium-font;
@@ -31,6 +37,5 @@
         display: block;
       }
     }
-    
   }
 }
