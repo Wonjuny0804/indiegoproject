@@ -11,9 +11,19 @@
     margin-top: 10px;
     &:hover {
       color: rgb(2, 2, 2);
-    }s
-    .login-btn-txt {
+    }
+    s .login-btn-txt {
       margin-left: 5px;
+    }
+  }
+  .favorite-popup {
+    background: yellow;
+    position: absolute;
+    top: 80px;
+    right: 200px;
+    display: none;
+    &.is-active {
+      display: block;
     }
   }
 }
