@@ -4,6 +4,7 @@ import bookicon from '../assets/book-icon.png'
 import filmicon from '../assets/film-icon.png'
 import { firestore } from './firebaseSetting';
 import { fireauth } from './firebaseSetting';
+import { renderFavorites } from './favorites';
 
 
 const bookstoreColRef = firestore.collection('Bookstores');
@@ -462,15 +463,16 @@ const mapHandler = () => {
   });
 
   $bookstoreCarousel.addEventListener('click', async (e: any) => {
-    const id = +e.target.parentNode.id;
+    const id = +e.target.parentNode.parentNode.id;
     const bookstoreQuerySnapshot = await bookstoreColRef.get();
     const usersQuerySnapshot = await usersColRef.get();
     
     if (!e.target.matches('.favorite-btn')) return;
-    
+
     bookstoreQuerySnapshot.forEach(doc => {
       if (id === doc.data().id) {
         bookinfos = [...bookinfos, doc.data().name];
+        // bookinfos = bookinfos.filter(bookinfo => );
         fireauth.onAuthStateChanged((user: any) =>{
           usersQuerySnapshot.forEach((doc: any) => {
             if (doc.data().userEmail === user.email) {
@@ -481,7 +483,10 @@ const mapHandler = () => {
           })
         });
       }
-    })
+    });
+
+    renderFavorites(bookinfos);
+
   })
 
 };
