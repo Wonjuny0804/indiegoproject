@@ -3,7 +3,7 @@ import mapHandler from "./mapHandler";
 import './firebaseSetting';
 import login from './login';
 import signup from './signup';
-import favorite from "./favorites";
+import { favorite } from "./favorites";
 
 imageHandler();
 login();
