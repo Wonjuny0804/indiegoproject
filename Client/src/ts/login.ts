@@ -22,6 +22,7 @@ const login = () => {
   const $password = document.querySelector('form #loginPwd') as HTMLInputElement;
   const $signin = document.querySelector('.sign-in') as HTMLButtonElement;
   const $favBtn = document.querySelector('.check-favorite-btn') as HTMLButtonElement;
+  const $favPopup = document.querySelector('.favorite-popup') as HTMLElement;
 
   const usersColRef = firestore.collection('Users');
 
