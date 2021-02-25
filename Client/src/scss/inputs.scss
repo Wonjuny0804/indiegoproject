@@ -3,8 +3,13 @@
   flex-direction: column;
   align-items: center;
   position: relative;
+  input {
+    padding: 10px;
+    font-size: 1.6rem;
+  }
   label {
     font-size: 2rem;
+    font-family: 'roboto';
     position: absolute;
     left: 15px;
     top: 5px;
