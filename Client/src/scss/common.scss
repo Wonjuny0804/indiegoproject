@@ -34,6 +34,11 @@ a {
   margin: -1px;
 }
 
+
+.is-active {
+  display: block;
+}
+
 @mixin flexCenter {
   display: flex;
   align-items: center;
@@ -52,9 +57,9 @@ a {
     @content;
   }
 }
-
+// 
 @mixin desktop {
-  @media (min-width: $breakpoint-desktop - 1px) {
+  @media screen and (min-width: $breakpoint-desktop - 1px) {
     @content;
   }
 }
