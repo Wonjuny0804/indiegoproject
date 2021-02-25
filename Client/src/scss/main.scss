@@ -236,11 +236,21 @@ header {
         .overlay {
           opacity: 1;
           background-color: rgba(255, 192, 203, 0.253);
-          svg {
+          svg, button {
+            border: none;
+            cursor: pointer;
             color: $secondary-color;
             font-size: 3rem;
             margin: 0 15px;
-         
+            transition: 0.5s;
+            &:hover {
+              transform: scale(1.2);
+            }
+          }
+          button {
+            &:hover {
+              color: rgb(252, 187, 187);
+            }
           }
         }
       }
@@ -250,9 +260,19 @@ header {
       height: 80px;
       padding: 20px;
       overflow: scroll;
+      -ms-overflow-style: none;  /* Internet Explorer 10+ */
+      scrollbar-width: none;  /* Firefox */
       text-align: center;
+      border-bottom: 20px solid #f6eee1;
       h2 {
         font-size: 1.3rem;
+        color: #92796a;
+        font-weight: 700;
+        margin-bottom: 15px;
+      }
+      .address {
+        font-size: 1rem;
+        color: #94674b
       }
       p {
         margin-top: 10px;
@@ -261,6 +281,8 @@ header {
       }
     }
     .favorite-btn {
+      background-color: transparent;
+      outline: none;
     }
   }
   .carousel-control {
