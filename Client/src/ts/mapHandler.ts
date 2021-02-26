@@ -14,6 +14,7 @@ const bookstoreColRef = firestore.collection('Bookstores');
 const theatreColRef = firestore.collection('Theatres');
 const usersColRef = firestore.collection('Users');
 let bookinfos: string[] = [];
+let theatreinfos: string[] = [];
 declare let kakao: any;
 
 let bookstores: Array<Branch> = [];
@@ -28,6 +29,7 @@ const $theatreBtn = document.querySelector('.theatre-info-btn') as HTMLButtonEle
 const $bookStoreInfo = document.querySelector('.bookstore-info') as HTMLElement;
 const $theatreInfo = document.querySelector('.theatre-info') as HTMLElement;
 const $bookstoreCarousel = document.querySelector('.bookstore-carousel-slides') as HTMLElement;
+const $theatreCarousel = document.querySelector('.theatre-carousel-slides') as HTMLElement;
 
 const zoomToStore = (id: string, map: any, mode: string) => {
   const stores = mode === 'bookstores' ? bookstores : theatres;
@@ -346,19 +348,20 @@ const mapHandler = () => {
     });
   });
 
-  $bookstoreCarousel.addEventListener('click', async (e: any) => {
-    const id = +e.target.parentNode.parentNode.id;
+  $bookstoreCarousel.addEventListener('click', async (e: MouseEvent) => {
+    const target = e.target as HTMLButtonElement;
+    const slide = target.closest('.slide') as HTMLElement;
+    const id = +slide?.id;
     const bookstoreQuerySnapshot = await bookstoreColRef.get();
     const usersQuerySnapshot = await usersColRef.get();
     
-    if (!e.target.matches('.favorite-btn')) return;
+    if (!target.matches('.favorite-btn')) return;
 
     bookstoreQuerySnapshot.forEach(doc => {
       if (id === doc.data().id) {
         bookinfos = [...bookinfos, doc.data().name];
-        // bookinfos = bookinfos.filter(bookinfo => );
         fireauth.onAuthStateChanged((user: any) =>{
-          usersQuerySnapshot.forEach((doc: any) => {
+          usersQuerySnapshot.forEach(doc => {
             if (doc.data().userEmail === user.email) {
               usersColRef.doc(doc.id).update({
                 favorites: bookinfos
@@ -373,6 +376,33 @@ const mapHandler = () => {
 
   })
 
+  $theatreCarousel.addEventListener('click', async (e: MouseEvent) => {
+    const target = e.target as HTMLButtonElement;
+    const slide = target.closest('.slide') as HTMLElement;
+    const id = +slide?.id;
+    const theatreQuerySnapshot = await theatreColRef.get();
+    const usersQuerySnapshot = await usersColRef.get();
+    
+    if (!target.matches('.favorite-btn')) return;
+
+    theatreQuerySnapshot.forEach(doc => {
+      if (id === doc.data().id) {
+        theatreinfos = [...theatreinfos, doc.data().name];
+        fireauth.onAuthStateChanged((user: any) =>{
+          usersQuerySnapshot.forEach(doc => {
+            if (doc.data().userEmail === user.email) {
+              usersColRef.doc(doc.id).update({
+                favorites: theatreinfos
+              })
+            }
+          })
+        });
+      }
+    });
+
+    renderFavorites(theatreinfos);
+
+  })
 };
 
 export default mapHandler;
