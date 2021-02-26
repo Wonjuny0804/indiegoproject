@@ -2,12 +2,19 @@ import { firestore } from './firebaseSetting';
 import { fireauth } from './firebaseSetting';
 
 // DOM
+let bookinfos: string[] = [];
+let theatreinfos: string[] = [];
+
 const $favBtn = document.querySelector('.check-favorite-btn') as HTMLButtonElement;
 const $favoritePopup = document.querySelector('.favorite-popup') as HTMLElement;
 const $favoriteList = document.querySelector('.favorite-list') as HTMLUListElement;
 
+const $bookstoreCarousel = document.querySelector('.bookstore-carousel-slides') as HTMLElement;
+const $theatreCarousel = document.querySelector('.theatre-carousel-slides') as HTMLElement;
+
 const usersColRef = firestore.collection('Users');
 const bookstoreColRef = firestore.collection('Bookstores');
+const theatreColRef = firestore.collection('Theatres');
 
 export const renderFavorites = async (favorites: string[]) => {
   const favoriteQuerySnapshot = await usersColRef.get();
@@ -61,4 +68,61 @@ export const favorite = async () => {
       });
     });
   });
+
+
+  $bookstoreCarousel.addEventListener('click', async (e: MouseEvent) => {
+    const target = e.target as HTMLButtonElement;
+    const slide = target.closest('.slide') as HTMLElement;
+    const id = +slide?.id;
+    const bookstoreQuerySnapshot = await bookstoreColRef.get();
+    const usersQuerySnapshot = await usersColRef.get();
+    
+    if (!target.matches('.favorite-btn')) return;
+
+    bookstoreQuerySnapshot.forEach(doc => {
+      if (id === doc.data().id) {
+        bookinfos = [...bookinfos, doc.data().name];
+        fireauth.onAuthStateChanged((user: any) =>{
+          usersQuerySnapshot.forEach(doc => {
+            if (doc.data().userEmail === user.email) {
+              usersColRef.doc(doc.id).update({
+                favorites: bookinfos
+              })
+            }
+          })
+        });
+      }
+    });
+
+    renderFavorites(bookinfos);
+
+  })
+
+  $theatreCarousel.addEventListener('click', async (e: MouseEvent) => {
+    const target = e.target as HTMLButtonElement;
+    const slide = target.closest('.slide') as HTMLElement;
+    const id = +slide?.id;
+    const theatreQuerySnapshot = await theatreColRef.get();
+    const usersQuerySnapshot = await usersColRef.get();
+    
+    if (!target.matches('.favorite-btn')) return;
+
+    theatreQuerySnapshot.forEach(doc => {
+      if (id === doc.data().id) {
+        theatreinfos = [...theatreinfos, doc.data().name];
+        fireauth.onAuthStateChanged((user: any) =>{
+          usersQuerySnapshot.forEach(doc => {
+            if (doc.data().userEmail === user.email) {
+              usersColRef.doc(doc.id).update({
+                favorites: theatreinfos
+              })
+            }
+          })
+        });
+      }
+    });
+
+    renderFavorites(theatreinfos);
+
+  })
 }
