@@ -1,11 +1,14 @@
-import axios from 'axios';
-import { map } from 'lodash';
-import bookicon from '../assets/book-icon.png'
+import bookicon from '../assets/book-icon.png';
 import filmicon from '../assets/film-icon.png'
 import { firestore } from './firebaseSetting';
 import { fireauth } from './firebaseSetting';
 import { renderFavorites } from './favorites';
-
+import { Branch } from './interface/interface';
+import createMap from './utils/createMap';
+import getCoordinates from './utils/getCoordinates';
+import toggleInfoWindow from './utils/toggleInfoWindow';
+import displayMarker from './utils/displayMarker';
+import { createNearStoreContent, createInfoWindowContent, createCarouselContent } from './utils/createContent'
 
 const bookstoreColRef = firestore.collection('Bookstores');
 const theatreColRef = firestore.collection('Theatres');
@@ -13,22 +16,6 @@ const usersColRef = firestore.collection('Users');
 let bookinfos: string[] = [];
 let theatreinfos: string[] = [];
 declare let kakao: any;
-
-interface Branch {
-  id: number;
-  name: string;
-  address: string;
-  tel: string;
-  openhour: string;
-  introduction: string;
-  website: string;
-  instagram: string;
-  img: string;
-  lat: number;
-  lng: number;
-  distance: number;
-  region: string;
-}
 
 let bookstores: Array<Branch> = [];
 let theatres: Array<Branch> = [];
@@ -43,53 +30,6 @@ const $bookStoreInfo = document.querySelector('.bookstore-info') as HTMLElement;
 const $theatreInfo = document.querySelector('.theatre-info') as HTMLElement;
 const $bookstoreCarousel = document.querySelector('.bookstore-carousel-slides') as HTMLElement;
 const $theatreCarousel = document.querySelector('.theatre-carousel-slides') as HTMLElement;
-
-
-
-const getCoordinates = (address: string) => {
-  return new Promise((resolve, reject) => {
-    const geocoder = new kakao.maps.services.Geocoder();
-    geocoder.addressSearch(address, (result: Object, status: string) => {
-      if (status === kakao.maps.services.Status.OK) {
-        resolve(result);
-      } else {
-        reject(status);
-      }
-    });
-  });
-};
-
-const toggleInfoWindow = (map: any, overlay: any) => {
-  let isOpen = false;
-  return () => {
-    if (isOpen) {
-      overlay.setMap(map);
-      isOpen = !isOpen;
-    } else {
-      overlay.setMap(null);
-      isOpen = !isOpen;
-    }
-  };
-};
-
-const displayMarker = (locPosition: Object, image: string, map: any, message?: string) => {
-  const marker = new kakao.maps.Marker({
-    map: map,
-    position: locPosition,
-    image
-  });
-
-  if (message) {
-    const infowindow = new kakao.maps.InfoWindow({
-        content : message,
-        removable : true
-    });
-    infowindow.open(map, marker);
-  }
-
-  map.setLevel(8);
-  map.setCenter(locPosition);
-};
 
 const zoomToStore = (id: string, map: any, mode: string) => {
   const stores = mode === 'bookstores' ? bookstores : theatres;
@@ -107,13 +47,8 @@ const renderNearByStore = (nearByStore: Array<Branch>, map: any, mode:string) =>
     .sort((store1: any, store2: any) => store1.distance - store2.distance)
     .slice(0, 3);
   $nearByStore.innerHTML = '';
-  sortedByDistance.forEach(({ id, name, distance, lat, lng }: Branch) => {
-    $nearByStore.innerHTML += `<li class="store-list">
-    <button class="locate-store-btn" id="${id}">${name}</button>
-    <span class="distance-info">${Math.ceil(distance) / 1000}km</span>
-    <a target="_blank" href="https://map.kakao.com/link/to/${name},${lat},${lng}"><i class="fas fa-directions"></i></a>
-    </li>
-    `;
+  sortedByDistance.forEach((store: Branch) => {
+    $nearByStore.innerHTML += createNearStoreContent(store);
   });
 
   $nearByStore.addEventListener('click', (e: MouseEvent) => {
@@ -132,14 +67,8 @@ const findNearByStore = async (locPosition: Object, map: any, mode: string) => {
   });
 
   try {
-    const nearbyStore: any = await Promise.all(
-      stores.map(async (store: any, i: number) => {
-        const locationInfo: any = await getCoordinates(store.address);
-
-        const lat = locationInfo[0].address.y;
-        const lng = locationInfo[0].address.x;
-
-        const newPath = [locPosition, new kakao.maps.LatLng(lat, lng)];
+    const nearbyStore: any = stores.map((store: Branch, i: number) => {
+        const newPath = [locPosition, new kakao.maps.LatLng(store.lat, store.lng)];
         polyline.setPath(newPath);
         const distance = polyline.getLength();
 
@@ -147,20 +76,15 @@ const findNearByStore = async (locPosition: Object, map: any, mode: string) => {
           store.distance = distance;
           return store;
         }
-      })
-    );
+      });
     // undefined는 filter 해서 전달
-    renderNearByStore(
-      nearbyStore.filter((store: Branch) => store),
-      map, mode
-    );
+    renderNearByStore(nearbyStore.filter((store: Branch) => store), map, mode);
   } catch (err) {
     console.log(err);
   }
 };
 
 const markCurrentLoc = (map: any, mode: string) => {
-
   const $loader =  (mode === 'bookstores')
   ? document.querySelector('.bookstore-info .loc-loader') as HTMLElement
   : document.querySelector('.theatre-info .loc-loader') as HTMLElement;
@@ -183,15 +107,6 @@ const markCurrentLoc = (map: any, mode: string) => {
     message = 'geolocation를 사용할수없음';
     displayMarker(locPosition, markerImage, map, message);
   }
-};
-
-const createMap = (mode: string) => {
-  const $container = (mode === 'bookstores' ? $bookStoreMap : $theatreMap);
-  const options = {
-    center: new kakao.maps.LatLng(37.5665, 126.978),
-    level: 12
-  };
-  return new kakao.maps.Map($container, options);
 };
 
 const plotMap = async (mode: string, map: any) => {
@@ -219,10 +134,7 @@ const plotMap = async (mode: string, map: any) => {
     }]
   });
 
-  const imageSrc =
-    mode === 'bookstores'
-      ? bookicon
-      : filmicon;
+  const imageSrc = (mode === 'bookstores') ? bookicon: filmicon;
   const imageSize = new kakao.maps.Size(64, 69);
   const imageOption = { offset: new kakao.maps.Point(27, 69)};
   const markerImage = new kakao.maps.MarkerImage(
@@ -232,28 +144,19 @@ const plotMap = async (mode: string, map: any) => {
   );
 
   try {
-    const markers: any = await Promise.all(
+    const markers = await Promise.all(
       stores.map(async (store: Branch, i: number) => {
         const locationInfo: any = await getCoordinates(store.address);
         store.lat = locationInfo[0].address.y;
         store.lng = locationInfo[0].address.x;
         store.region = locationInfo[0].road_address.region_1depth_name;
+
         const marker = new kakao.maps.Marker({
           position: new kakao.maps.LatLng(store.lat, store.lng),
           image: markerImage
         });
-        const content = `<div class="wrap">
-          <div class="info">
-            <div class="title">${store.name}</div> 
-              <div class="body"> 
-                  <div class="desc">
-                    <address class="ellipsis">${store.address}</address>  
-                      <p class="openhour">${store.openhour}</p> 
-                      <a href="tel:+${store.tel}" class="tel">${store.tel}</a> 
-                    </div>
-              </div>
-            </div>   
-        </div>`;
+
+        const content = createInfoWindowContent(store);
 
         const overlay = new kakao.maps.CustomOverlay({
           content: content,
@@ -277,7 +180,6 @@ const plotMap = async (mode: string, map: any) => {
         return marker;
       })
     );
-
     clusterer.addMarkers(markers);
     $findNearByStoreBtn.addEventListener('click', (e: MouseEvent) => {
       markCurrentLoc(map, mode)  
@@ -302,13 +204,12 @@ const createListNav = (mode: string) => {
       (location: any, index: number, locArray: any) =>
         locArray.indexOf(location) === index
     );
-
   $storeByRegionTab.innerHTML = storeByRegion
     .map(
       ($menu: any, i: number) =>
         `<div>
-        <input type="radio" name="location" id="${$menu}${++i}" class="display-list-btn">
-        <label for="${$menu}${i}">${$menu}</label>
+        <input type="radio" name="location" id="${mode}${++i}" class="display-list-btn">
+        <label for="${mode}${i}">${$menu}</label>
         </div>
         `
     )
@@ -321,7 +222,6 @@ const displayListCarousel = (mode: string, map: any) => {
   ? document.querySelector('.bookstore-carousel') as HTMLElement
   : document.querySelector('.theatre-carousel') as HTMLElement);
   
-
   const $storeByRegionTab = (mode === 'bookstores' 
   ? document.querySelector('.bookstore-info .cities') as HTMLElement
   : document.querySelector('.theatre-info .cities') as HTMLElement);
@@ -332,31 +232,14 @@ const displayListCarousel = (mode: string, map: any) => {
 
   $storeByRegionTab.addEventListener('change', (e: Event) => {
     currentSlide = 0;
-    
     const target = e.target as HTMLElement;
     if (!target.classList.contains('display-list-btn')) return;
     const matchingStore = stores.filter(
       (store: Branch) => store.region === target.nextElementSibling?.textContent
     );
-
     $storeCarousel.innerHTML = matchingStore
       .map((store: Branch) => {
-        console.log(store.website);
-        return `
-        <div class="slide" id=${store.id}> 
-          <img src="${store.img}" alt="${store.name}">
-          <div class="info-panel">
-            <h2>${store.name}</h2>
-            <span class="address"><i class="fas fa-map-marker-alt"></i> ${store.address}</span>
-            <p>${store.introduction}</p>
-          </div>
-          <div class="overlay">
-            <button type="button" class="favorite-btn">❤︎</button>
-            <a href="${store.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="${store.website}" target="_blank"><i class="fas fa-home"></i></a>
-          </div> 
-       </div>
-        `;
+        return createCarouselContent(store);
       })
       .join('');
     $storeCarousel.style.setProperty('--currentSlide', '0');
@@ -387,7 +270,6 @@ const displayListCarousel = (mode: string, map: any) => {
           $storeCarousel.style.setProperty('--currentSlide', ++currentSlide + '');
           $storeCarousel.style.setProperty('--duration', 500 + '');
           zoomToStore(slides[currentSlide].id, map, mode);
-          console.log(currentSlide);
         }
       }
     })
@@ -415,21 +297,29 @@ const renderMap = async (mode: string) => {
 };
 
 const initBookStoreMap = async () => {
+  const $spinner = document.querySelector('.bookstore-info .spinner') as HTMLElement;
+  $spinner.style.display = 'block';
   try {
     await fetchData('bookstores');
     await renderMap('bookstores');
   } catch (err) {
     console.log(err);
   }
+  $spinner.style.display = 'none';
+  $bookStoreMap.style.opacity = '1';
 }
 
 const initTheatreMap = async () => {
+  const $spinner = document.querySelector('.theatre-info .spinner') as HTMLElement;
+  $spinner.style.display = 'block';
   try {
     await fetchData('theatres');
     await renderMap('theatres');
   } catch (err) {
     console.log(err);
   }
+  $spinner.style.display = 'none';
+  $theatreMap.style.opacity = '1';
 }
 
 const mapHandler = () => {

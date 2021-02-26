@@ -11,7 +11,6 @@ body{
 }
 
 @mixin button {
-  user-select: none;
   font-weight: 100;
   font-family: 'roboto';
   border: none;
@@ -37,11 +36,6 @@ a {
   margin: -1px;
 }
 
-
-.is-active {
-  display: block;
-}
-
 @mixin flexCenter {
   display: flex;
   align-items: center;
@@ -60,13 +54,23 @@ a {
     @content;
   }
 }
-// 
+
 @mixin desktop {
-  @media screen and (min-width: $breakpoint-desktop - 1px) {
+  @media (min-width: $breakpoint-desktop - 1px) {
     @content;
   }
 }
 
+.spinner {
+  display: none;
+  width: 40px;
+  height: 40px;
+  margin: 100px auto;
+  background-color: #ccc4b9;
+  border-radius: 100%;  
+  -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+  animation: sk-scaleout 1.0s infinite ease-in-out;
+}
 
 @-webkit-keyframes mapping{
   0% {top: 0;}
@@ -77,4 +81,23 @@ a {
   0% {top: 0;}
   50%{top: -5px;}
   100% {top:0; }
+}
+
+@-webkit-keyframes sk-scaleout {
+  0% { -webkit-transform: scale(0) }
+  100% {
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+@keyframes sk-scaleout {
+  0% { 
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 100% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+    opacity: 0;
+  }
 }
