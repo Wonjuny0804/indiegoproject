@@ -1,7 +1,8 @@
 import signuplogo from '../assets/signup.svg';
 import signupImage from '../assets/signup-image.svg';
 import { initialize, openPopup, closePopup, placeholder } from './utils';
-import { fireauth } from './firebaseSetting'; 
+import { fireauth } from './firebaseSetting';
+import { firestore } from './firebaseSetting';
 import _ from 'lodash';
 const signup = () => {
   // Get DOM elements
@@ -13,6 +14,8 @@ const signup = () => {
   const $signupbg = document.querySelector('.signup-popup-bg') as HTMLDivElement;
   const $signupSubmit = document.querySelector('.signup-submit') as HTMLButtonElement;
   const $signupInputs = document.querySelectorAll('.signup-form input') as NodeList;
+
+  const usersColRef = firestore.collection('Users');
 
   // Event listener
   const load = (e: MouseEvent) => {
@@ -38,8 +41,15 @@ const signup = () => {
   const createNewUser = async (e: Event) => {
     e.preventDefault();
     try {
-      const newUser = await fireauth.createUserWithEmailAndPassword($signupForm['signupEmail'].value, $signupForm['signupPwConfirm'].value)
-      console.log(newUser);
+      const newUser: any = await fireauth.createUserWithEmailAndPassword($signupForm['signupEmail'].value, $signupForm['signupPwConfirm'].value)
+      const querySnapshot: any = await usersColRef.get();
+
+      querySnapshot.forEach((doc: any) => {
+        usersColRef.add({
+          userEmail: newUser.user.email,
+          favorites: []
+        });
+      });
 
       initialize($signupInputs);
       closePopup($signup);
