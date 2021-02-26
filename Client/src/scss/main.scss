@@ -49,6 +49,7 @@ header {
   }
 }
 
+
 .main {
   background: $secondary-color;
   .menu {
@@ -84,28 +85,15 @@ header {
         white-space: nowrap;
       }
 
-      @include desktop {
-        .closest-store-list {
-          width: 400px;
-        }
-      }
-
-      @include tablet {
-        .closest-store-list {
-          width: 300px;
-        }
-      }
-
       .info {
         margin-top: 30px;
-        margin-left: 15px;
         color: $font-color;
       }
 
       .closest-store-list {
         color: rgb(82, 82, 82);
         position: relative;
-        max-width: 400px;
+        width: 600px;
         padding: 10px;
 
         li {
@@ -137,6 +125,19 @@ header {
       }
     }
   }
+}
+
+@include tablet {
+  .main {
+    .menu {
+      .closest-store {
+        .closest-store-list {
+          width: 300px;
+        }
+      }
+    }
+  }
+
 }
 
 .menu-btns {

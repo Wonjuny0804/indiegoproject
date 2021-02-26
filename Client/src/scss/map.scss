@@ -1,10 +1,10 @@
 
-
 .bookstore-map, .theatre-map {
   width:600px;
   height:400px;
 	margin: 20px auto; 
 	border: 3px solid rgba(128, 128, 128, 0.1);
+	opacity: 0;
 }
 
 @include tablet {
@@ -107,7 +107,7 @@
 .loc-loader {
 	margin: 30px auto;
 	position: relative;
-	left: -9px;
+	left: -14px;
 	cursor: pointer;
 	&:hover:before {
 		background-color: rgb(220, 220, 220);

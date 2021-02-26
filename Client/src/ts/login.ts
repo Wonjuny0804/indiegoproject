@@ -51,6 +51,7 @@ const login = () => {
 
       querySnapshot.forEach((doc: any) => {
         if (doc.data().userEmail !== user.user.email) {
+          console.log(doc.data().userEmail, user.user.email);
           usersColRef.add({
             userEmail: user.user.email,
             favorites: []
