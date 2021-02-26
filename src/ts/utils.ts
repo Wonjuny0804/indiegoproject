@@ -23,7 +23,7 @@ const closePopup = (popup: HTMLElement): void => {
 
 const placeholder = (inputElement: HTMLInputElement): void => {
   const $labelPlaceholder = inputElement.previousElementSibling as HTMLLabelElement;
-  $labelPlaceholder.classList.toggle('label-focus');
+  if ($labelPlaceholder) $labelPlaceholder.classList.toggle('label-focus');
 };
 
 export { initialize, openPopup, closePopup, placeholder };
