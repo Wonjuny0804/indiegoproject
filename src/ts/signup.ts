@@ -4,11 +4,13 @@ import { initialize, openPopup, closePopup, placeholder } from './utils';
 import { fireauth } from './firebaseSetting';
 import { firestore } from './firebaseSetting';
 import _ from 'lodash';
+
 const signup = () => {
   // Get DOM elements
   const $main = document.querySelector('.main') as HTMLElement;
   const $login = document.querySelector('.login') as HTMLElement;
   const $signup = document.querySelector('.signup') as HTMLElement;
+  const $loginInputs = document.querySelectorAll('form input') as NodeList;
   const $signupbtn = document.querySelector('.sign-up') as HTMLButtonElement;
   const $signupForm = document.querySelector('.signup-form') as HTMLFormElement;  
   const $signupbg = document.querySelector('.signup-popup-bg') as HTMLDivElement;
@@ -28,6 +30,7 @@ const signup = () => {
     $signupImage.src = signupImage;
 
     openPopup($signup);
+    initialize($loginInputs);
     closePopup($login);
   }
 
@@ -109,7 +112,7 @@ const signup = () => {
   $signupbg.addEventListener('focusin', labelTransition);
   $signupbg.addEventListener('focusout', labelTransition);
   $signupForm.addEventListener('submit', createNewUser);
-  $signupForm.addEventListener('keyup', _.throttle(validationCheck));
+  $signupForm.addEventListener('keyup', _.throttle(validationCheck, 1000));
 }
 
 export default signup;
